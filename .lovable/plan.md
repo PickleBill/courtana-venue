@@ -1,70 +1,68 @@
+# Plan: Restore Navigation, Remove Password Gate, Update Courts/Cameras, Add Calendar
 
+## Answering Your Questions First
 
-# Plan: Peak Pickleball Venue Portal Transformation
+**Partner Login**: Currently it's just a styled button in the navbar that doesn't do anything. We can wire it up later to a real auth flow, or for now make it link to the Dashboard. -> I don't ever want dead links to ever come out, especially not one that is like a primary CTA. 
 
-## Summary
-Transform the entire app into a customized portal for Peak Pickleball with real dates (April 7 - June 1, 2026), real quotes from Chris Kepko, Peak-specific events, updated economics, and a password-gated dashboard.
+**Remixing**: Yes -- when you remix a project, it creates a full copy of the codebase at that point in time. Your original project stays exactly as it is. You can always go back to any previous build by checking git history or remixing before making changes.
+
+---
 
 ## Changes
 
-### 1. Global Updates
-- **`index.html`**: Title → "Courtana × Peak Pickleball", update meta description
-- **`src/components/Navbar.tsx`**: Simplify nav to "The Plan | Events | Dashboard (🔒)" only. Remove Schedule, Discovery, Ecosystem, About links.
+### 1. Navbar -- Restore All Pages + Remove Lock Icon
 
-### 2. Landing Page (`src/pages/Landing.tsx`) — Major Rewrite
+Expand nav links back to include all pages. Use a dropdown or "More" menu to keep it clean:
 
-**Hero**: Badge → "🟢 Live Partnership Portal". Subheadline → "Smart courts. Real data. Zero risk. Your 8-week launch plan starts April 7." Stats → "4 Smart Courts | $0 Upfront | May 9 Grand Opening | 300-Player Tournament"
+- **Primary links**: The Plan | Events | Dashboard | Discovery
+- **"More" dropdown**: Partners (Ecosystem) | Schedule | About
+- **Partner Login button**: Links to `/dashboard` for now
+- Remove the Lock icon from Dashboard
 
-**New "What We Heard" section** after hero: Three pull-quote cards with green left border from Chris Kepko (the $1.5M facility quote, gamification/badges quote, and 16-court expansion quote).
+### 2. Dashboard -- Remove Password Gate
 
-**Value Props** — Replace all 6 with Peak-specific cards: Cameras on 4 Courts, We Run Your Events, AI Coaching at $20-25, Gamification That Sticks, Open Play Solved, Live Broadcast to the Highway.
+Strip out the password check, `sessionStorage`, and the login card. Dashboard renders directly with all its charts and data. Keep all existing content (KPI cards, utilization chart, revenue chart, event table, pilot scorecard). -> I'm down to keep the session storage. I want to make this as real as possible. 
 
-**8-Week Timeline** — Replace with real dates anchored to Peak's calendar (April 7 through June 1). Each week gets specific tags (LAUNCH/EVENTS/DATA/GROWTH/REVIEW), real deliverables, and Peak-specific descriptions as specified.
+### 3. Update Courts/Cameras Numbers Everywhere
 
-**Economics** — Update KPIs to: $0 pilot investment, $95/court/mo post-pilot, $2,000-4,000/mo projected lift. Revenue table: 5 rows with Premium court pricing, AI coaching, Tournament revenue share, Walk-in/guest fees, Open play optimization across Conservative/Realistic/Upside columns totaling $1,200/$2,650/$4,100. Add "Zero Risk" callout box.
+Change from "4 courts" to **"6 courts"** and add **"10 cameras"** across:
 
-### 3. Events Page (`src/data/events.ts` + `src/pages/Events.tsx`) — Replace All Events
+- Landing hero stats: "6 Smart Courts" + add "10 Cameras"
+- Value props: "Cameras on 6 Courts" with updated description
+- Timeline references (week 1 install, week 4 tournament, etc.)
+- Economics: update $95/court × 6 = $570/mo pilot, 16-court expansion math stays.  
+- Zero Risk box: "6 courts. 10 cameras."
+- Dashboard header references
 
-Replace the 6 seed events with Peak-specific events:
-1. Peak Spring Smash Tournament (May 1-4, $40, 300 spots)
-2. Courtana Court Preview: Coaches Only (April 14, Free/invite only, 10 spots)
-3. Open Play Happy Hour (Every Thursday from April 17, $10/members free)
-4. AI Coaching Clinic: Third Shot Mastery (April 22, $25, 16 spots)
-5. Friday Night Lights: Live Broadcast (Every Friday from May 16, Free/$5)
-6. Charity Round Robin (May 17, $20, 24 spots)
+### 4. Landing Page Timeline -- Make Weeks Clickable
 
-**Featured event** (full-width card at top): Peak Pickleball Grand Opening — Dinks & Drinks with Chris Kelly (May 9, $15).
+Each week card in the 8-week timeline becomes a clickable link. Clicking a week navigates to a dedicated route `/week/:num` (or scrolls to an expanded detail view). For now, implement as **expandable cards** -- clicking a week expands it to show full programming details, deliverables become clickable pills that link to relevant pages:
 
-Each card CTA opens a booking modal (already exists in EventDetail — add inline modal to Events page too). Bottom CTA: "Want to host your own event?" → mailto:bill@courtana.com.
+- Event deliverables → `/events`
+- Dashboard deliverables → `/dashboard`
+- Coaching deliverables → `/discovery`
 
-### 4. Dashboard Page (`src/pages/Dashboard.tsx`) — Password-Gated Rewrite
+### 5. Add Events Calendar Page
 
-**Password gate**: Centered card, "Peak Pickleball — Pilot Dashboard", password input, hardcode "peak2026". Store auth in sessionStorage.
+Create a simple calendar view on the `/schedule` page (it already exists but shows a court grid). Add a **monthly calendar** at the top using the existing shadcn Calendar component or a simple grid, with event dots on dates that have events. Clicking a date shows events for that day. Keep the court schedule grid below it.
 
-**Dashboard content** (after auth):
-- Header: "Peak Pickleball — Pilot Dashboard" + "Week 1 of 8" badge + "April 7 — June 1, 2026"
-- KPI row (4 cards): Sessions Recorded: 0, Highlights Generated: 0, Event Revenue: $0, Player Accounts: 0 — all with "Pilot starts April 7" subtext
-- Line chart: Court Utilization (Courtana Courts vs Standard) over 8 weeks with slight upward trend
-- Bar chart: Revenue by Source (Court Premium, Coaching, Events, Walk-ins, AI Reviews)
-- Event Performance table: The 6 events + featured event with Date, Capacity, Registered, Revenue, Status badges
-- Pilot Scorecard: Target metrics (15% utilization lift, $2,000/mo revenue, 50+ accounts) vs current status, "Starting Soon" badge
+### 6. Bottom CTA Buttons -- Simplify & Link
 
-### 5. Files Changed
+The bottom CTA buttons on the landing page: make "Let's Go" mailto and "Pilot Dashboard" link to `/dashboard`. Add a third: "View Calendar" → `/schedule`.
 
-**Modified:**
-- `index.html` — title + meta
-- `src/components/Navbar.tsx` — simplified nav links + 🔒 icon on Dashboard
-- `src/pages/Landing.tsx` — complete content rewrite (hero, quotes, value props, timeline, economics)
-- `src/pages/Events.tsx` — add featured event card + inline booking modal + mailto CTA
-- `src/pages/Dashboard.tsx` — password gate + zero-state dashboard with charts
-- `src/data/events.ts` — replace all 6 events + add featured event data
+## Files Modified
 
-**No new files needed** — all components and pages already exist.
+- `src/components/Navbar.tsx` -- expanded nav with More dropdown, Partner Login → /dashboard
+- `src/pages/Dashboard.tsx` -- remove password gate (lines 51-68), render dashboard directly
+- `src/pages/Landing.tsx` -- update stats (6 courts, 10 cameras), make week cards expandable/clickable, update all court references, update CTA buttons
+- `src/data/events.ts` -- update any "4 court" references
+- `src/pages/Schedule.tsx` -- add monthly calendar header with event dots above the court grid
 
-### Technical Notes
-- Password gate uses `useState` + `sessionStorage.getItem/setItem` pattern
-- Events dates use ISO format for `date-fns` parsing (2026-04-xx, 2026-05-xx)
-- Dashboard charts use recharts (already imported in current Dashboard)
-- Booking modal pattern already exists in EventDetail — reuse in Events page
-- Remove partner badge references from timeline (weekPartners) since nav is simplified
+## Remix Strategy
 
+To split features into separate remixes later:
+
+- **Remix before each major change** to preserve the current state as a fallback
+- **Venue-specific portals**: Remix this project for each new venue (Peak, next venue, etc.) and customize the content
+- **Core platform vs partner sites**: Keep this as the "Peak portal" remix; create a clean "template" remix with placeholder content for new venues
+- The Discovery dashboard, Partners ecosystem, and Schedule can each be extracted into standalone remixes if needed
