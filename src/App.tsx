@@ -9,6 +9,7 @@ import Schedule from "./pages/Schedule";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Discovery from "./pages/Discovery";
+import Partners from "./pages/Partners";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
