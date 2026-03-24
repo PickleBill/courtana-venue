@@ -5,8 +5,10 @@ import {
   ArrowRight, Mail, Trophy, Shield, Brain, Play, Zap, ExternalLink
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { weekPartners } from "@/data/partners";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import EcosystemFlywheel from "@/components/partners/EcosystemFlywheel";
 import LeaderboardMockup from "@/components/mockups/LeaderboardMockup";
 import BadgesMockup from "@/components/mockups/BadgesMockup";
 import AIAnalysisMockup from "@/components/mockups/AIAnalysisMockup";
@@ -194,6 +196,17 @@ const Landing = () => {
                       <span key={d} className="text-sm px-4 py-1.5 rounded-full bg-secondary text-muted-foreground font-medium">{d}</span>
                     ))}
                   </div>
+                  {weekPartners[w.num] && (
+                    <a
+                      href={weekPartners[w.num].url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-4 text-xs px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary hover:bg-primary/20 transition-colors w-fit"
+                    >
+                      {weekPartners[w.num].label} <span className="font-bold">{weekPartners[w.num].partnerName}</span>
+                      <ExternalLink size={10} />
+                    </a>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -287,6 +300,28 @@ const Landing = () => {
                 </tr>
               </tbody>
             </table>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Part of Something Bigger */}
+      <section className="py-24 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <motion.div className="glass rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-center gap-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <div className="flex-shrink-0">
+              <EcosystemFlywheel compact />
+            </div>
+            <div className="text-center md:text-left">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-3">Part of Something Bigger</h2>
+              <p className="text-base text-muted-foreground mb-6 leading-relaxed max-w-lg">
+                Courtana connects venues, coaches, equipment brands, and players into one ecosystem — each partner amplifying the others. See who's already building with us.
+              </p>
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 py-5 text-base font-bold glow-green gap-2" asChild>
+                <Link to="/partners">
+                  View the Ecosystem <ArrowRight size={18} />
+                </Link>
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>
