@@ -6,6 +6,7 @@ import Landing from "./pages/Landing";
 import Events from "./pages/Events";
 import EventDetail from "./pages/EventDetail";
 import Schedule from "./pages/Schedule";
+import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventDetail />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

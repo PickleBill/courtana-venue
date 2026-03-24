@@ -2,11 +2,15 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   Calendar, CreditCard, BarChart3, Camera, Megaphone, Settings,
-  ChevronRight, ArrowRight, Mail
+  ArrowRight, Mail, Trophy, Shield, Brain, Play
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LeaderboardMockup from "@/components/mockups/LeaderboardMockup";
+import BadgesMockup from "@/components/mockups/BadgesMockup";
+import AIAnalysisMockup from "@/components/mockups/AIAnalysisMockup";
+import ReplayMockup from "@/components/mockups/ReplayMockup";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -34,7 +38,7 @@ const valueProps = [
 ];
 
 const weeks = [
-  { num: 1, title: "Setup & Launch Party", focus: "Launch", color: "bg-purple-500/20 text-purple-400", desc: "Install smart court tech, configure systems, and host a free launch party to introduce Cortana to your members.", deliverables: ["Tech installed", "Launch event", "Email blast"] },
+  { num: 1, title: "Setup & Launch Party", focus: "Launch", color: "bg-purple-500/20 text-purple-400", desc: "Install smart court tech, configure systems, and host a free launch party to introduce Courtana to your members.", deliverables: ["Tech installed", "Launch event", "Email blast"] },
   { num: 2, title: "Coaching Clinics", focus: "Events", color: "bg-amber-500/20 text-amber-400", desc: "Run the first paid clinics with certified coaches. Test pricing, gather feedback, and start building momentum.", deliverables: ["2 clinics", "Player surveys", "Revenue report"] },
   { num: 3, title: "Round Robin + Charity", focus: "Events", color: "bg-amber-500/20 text-amber-400", desc: "Host a charity round robin to drive community engagement and press coverage. All proceeds to local youth sports.", deliverables: ["Tournament", "PR coverage", "Donation receipt"] },
   { num: 4, title: "Gamification", focus: "Data", color: "bg-cyan-500/20 text-cyan-400", desc: "Launch leaderboards, challenges, and achievement badges. Turn casual players into regulars.", deliverables: ["Leaderboard live", "Weekly challenge", "Player profiles"] },
@@ -52,6 +56,13 @@ const revenueStreams = [
   { name: "Merch & Concessions", conservative: "$50", realistic: "$150", upside: "$300" },
 ];
 
+const featureMockups = [
+  { title: "Local Leaderboards", desc: "Drive competitive engagement and repeat visits with venue-specific rankings, XP systems, and seasonal competition.", icon: Trophy },
+  { title: "Achievement Badges", desc: "Reward consistency and milestones. Players earn badges for streaks, skill achievements, and social play — keeping them coming back.", icon: Shield },
+  { title: "AI Shot Analysis", desc: "Every shot tracked, every pattern analyzed. Players get personalized insights that make them better — and keep them on your courts.", icon: Brain },
+  { title: "Instant Replay", desc: "Review any point seconds after it happens. Share highlights, settle disputes, and create social content that markets your venue.", icon: Play },
+];
+
 const Landing = () => {
   return (
     <div className="min-h-screen">
@@ -64,9 +75,10 @@ const Landing = () => {
             <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm font-medium text-primary">Venue Launch Playbook</span>
+              <span className="text-[10px] text-muted-foreground">— a <a href="https://courtana.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors underline underline-offset-2">courtana.com</a> experience</span>
             </motion.div>
             <motion.h1 variants={fadeInUp} className="hero-title text-foreground mb-6">
-              Cortana × <span className="text-gradient-green">Peak</span>
+              Courtana × <span className="text-gradient-green">Peak</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               An 8-week partnership to prove ROI, generate buzz, and turn your courts into a revenue engine.
@@ -106,28 +118,12 @@ const Landing = () => {
       {/* Value Props */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
-          <motion.h2
-            className="section-title text-foreground text-center mb-12"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
+          <motion.h2 className="section-title text-foreground text-center mb-12" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             Why venues partner with us
           </motion.h2>
-          <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
+          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             {valueProps.map((v) => (
-              <motion.div
-                key={v.title}
-                variants={fadeInUp}
-                className="glass rounded-2xl p-6 glow-green-hover transition-all duration-300 hover:-translate-y-0.5"
-              >
+              <motion.div key={v.title} variants={fadeInUp} className="glass rounded-2xl p-6 glow-green-hover transition-all duration-300 hover:-translate-y-0.5">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <v.icon className="text-primary" size={24} />
                 </div>
@@ -142,31 +138,13 @@ const Landing = () => {
       {/* 8-Week Timeline */}
       <section id="plan" className="py-20 px-4 bg-card/50">
         <div className="container mx-auto max-w-3xl">
-          <motion.h2
-            className="section-title text-foreground text-center mb-4"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
+          <motion.h2 className="section-title text-foreground text-center mb-4" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             The 8-Week Playbook
           </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-xl mx-auto"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
+          <motion.p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             Each week builds on the last. By week 8, you'll have hard data on ROI and a clear path forward.
           </motion.p>
-          <motion.div
-            className="space-y-6 relative"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-          >
+          <motion.div className="space-y-6 relative" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
             <div className="absolute left-6 top-0 bottom-0 w-px bg-border hidden md:block" />
             {weeks.map((w) => (
               <motion.div key={w.num} variants={fadeInUp} className="flex gap-6">
@@ -186,9 +164,7 @@ const Landing = () => {
                   <p className="text-sm text-muted-foreground mb-4">{w.desc}</p>
                   <div className="flex flex-wrap gap-2">
                     {w.deliverables.map((d) => (
-                      <span key={d} className="text-xs px-3 py-1 rounded-full bg-secondary text-muted-foreground">
-                        {d}
-                      </span>
+                      <span key={d} className="text-xs px-3 py-1 rounded-full bg-secondary text-muted-foreground">{d}</span>
                     ))}
                   </div>
                 </div>
@@ -198,35 +174,52 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Economics */}
+      {/* See It In Action */}
       <section className="py-20 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <motion.div className="text-center mb-12" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.h2 variants={fadeInUp} className="section-title text-foreground mb-4">
+              See It In Action
+            </motion.h2>
+            <motion.p variants={fadeInUp} className="text-muted-foreground max-w-2xl mx-auto">
+              From leaderboards to instant replay, here's what your players experience — and why they keep coming back.
+            </motion.p>
+          </motion.div>
+
+          {/* Feature descriptions */}
+          <motion.div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            {featureMockups.map((f) => (
+              <motion.div key={f.title} variants={fadeInUp} className="glass rounded-xl p-4 text-center">
+                <f.icon className="text-primary mx-auto mb-2" size={24} />
+                <h4 className="font-bold text-foreground text-sm mb-1">{f.title}</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Mockup grid */}
+          <div className="grid lg:grid-cols-2 gap-6">
+            <LeaderboardMockup />
+            <BadgesMockup />
+            <AIAnalysisMockup />
+            <ReplayMockup />
+          </div>
+        </div>
+      </section>
+
+      {/* Economics */}
+      <section className="py-20 px-4 bg-card/50">
         <div className="container mx-auto max-w-4xl">
-          <motion.h2
-            className="section-title text-foreground text-center mb-12"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
+          <motion.h2 className="section-title text-foreground text-center mb-12" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             The Economics
           </motion.h2>
-          <motion.div
-            className="grid md:grid-cols-3 gap-6 mb-12"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
+          <motion.div className="grid md:grid-cols-3 gap-6 mb-12" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             {[
               { label: "Your Cost", value: "$0", sub: "during pilot" },
               { label: "Post-Pilot", value: "$95", sub: "/month" },
               { label: "Revenue Lift", value: "$1,200+", sub: "/month", gold: true },
             ].map((m) => (
-              <motion.div
-                key={m.label}
-                variants={fadeInUp}
-                className={`glass rounded-2xl p-6 text-center ${m.gold ? "border-accent/30 glow-green" : ""}`}
-              >
+              <motion.div key={m.label} variants={fadeInUp} className={`glass rounded-2xl p-6 text-center ${m.gold ? "border-accent/30 glow-green" : ""}`}>
                 <div className="text-sm text-muted-foreground mb-2">{m.label}</div>
                 <div className={`text-4xl font-extrabold mb-1 ${m.gold ? "text-gradient-gold" : "text-foreground"}`}>{m.value}</div>
                 <div className="text-sm text-muted-foreground">{m.sub}</div>
@@ -234,14 +227,7 @@ const Landing = () => {
             ))}
           </motion.div>
 
-          {/* Revenue Table */}
-          <motion.div
-            className="glass rounded-2xl overflow-x-auto"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
+          <motion.div className="glass rounded-2xl overflow-x-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
@@ -275,20 +261,21 @@ const Landing = () => {
       {/* CTA */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-2xl text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.h2 variants={fadeInUp} className="section-title text-foreground mb-6">
               Ready to turn your courts into a revenue engine?
             </motion.h2>
-            <motion.div variants={fadeInUp}>
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 gap-2">
                 <Mail size={18} />
                 Get Started
                 <ArrowRight size={18} />
+              </Button>
+              <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary rounded-xl px-8 gap-2" asChild>
+                <Link to="/dashboard">
+                  <BarChart3 size={18} />
+                  See the Dashboard
+                </Link>
               </Button>
             </motion.div>
           </motion.div>

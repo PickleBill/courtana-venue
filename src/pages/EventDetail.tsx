@@ -56,7 +56,6 @@ const EventDetail = () => {
     <div className="min-h-screen">
       <Navbar />
 
-      {/* Hero banner */}
       <div className="pt-20 bg-gradient-to-br from-secondary to-background">
         <div className="container mx-auto px-4 py-12">
           <Link to="/events" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
@@ -76,10 +75,8 @@ const EventDetail = () => {
         </div>
       </div>
 
-      {/* Content */}
       <div className="container mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-5 gap-8">
-          {/* Left */}
           <div className="lg:col-span-3 space-y-8">
             <div>
               <h2 className="text-xl font-bold text-foreground mb-4">About This Event</h2>
@@ -106,7 +103,6 @@ const EventDetail = () => {
               <p className="text-muted-foreground">{event.whoItsFor}</p>
             </div>
 
-            {/* Share */}
             <div className="glass rounded-2xl p-6">
               <h3 className="font-bold text-foreground mb-3">Invite your crew</h3>
               <div className="flex gap-3">
@@ -120,7 +116,6 @@ const EventDetail = () => {
             </div>
           </div>
 
-          {/* Right — Booking card */}
           <div className="lg:col-span-2">
             <div className="glass rounded-2xl p-6 lg:sticky lg:top-24">
               <div className="text-3xl font-extrabold text-foreground mb-1">
@@ -134,52 +129,35 @@ const EventDetail = () => {
               <div className="text-sm text-muted-foreground mb-2">
                 <Calendar size={14} className="inline mr-1" /> {format(parseISO(event.date), "EEE, MMM d")} · {event.time}
               </div>
-              <Button
-                size="lg"
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl mt-4"
-                onClick={() => setShowModal(true)}
-              >
+              <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl mt-4" onClick={() => setShowModal(true)}>
                 Book Your Spot
               </Button>
               <div className="flex items-center gap-2 justify-center mt-4 text-xs text-muted-foreground">
                 <Shield size={12} /> Secure checkout powered by Stripe
+              </div>
+              <div className="mt-3 text-center">
+                <a href="https://courtana.com" target="_blank" rel="noopener noreferrer" className="text-[10px] text-muted-foreground/60 hover:text-primary transition-colors">
+                  Smart court stats powered by courtana.com
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Booking Modal */}
       <AnimatePresence>
         {showModal && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <motion.div className="fixed inset-0 z-50 flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => { setShowModal(false); setSuccess(false); }} />
-            <motion.div
-              className="glass rounded-2xl p-6 w-full max-w-md relative z-10"
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-            >
+            <motion.div className="glass rounded-2xl p-6 w-full max-w-md relative z-10" initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}>
               {success ? (
                 <div className="text-center py-8">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", duration: 0.5 }}
-                    className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4"
-                  >
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", duration: 0.5 }} className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
                     <Check className="text-primary" size={32} />
                   </motion.div>
                   <h3 className="text-xl font-bold text-foreground mb-2">You're in!</h3>
                   <p className="text-muted-foreground mb-6">Check your email for details and a calendar invite.</p>
-                  <Button onClick={() => { setShowModal(false); setSuccess(false); }} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">
-                    Done
-                  </Button>
+                  <Button onClick={() => { setShowModal(false); setSuccess(false); }} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">Done</Button>
                 </div>
               ) : (
                 <>
@@ -187,60 +165,30 @@ const EventDetail = () => {
                   <div className="space-y-4">
                     <div>
                       <Label>Name *</Label>
-                      <Input
-                        value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className="bg-secondary border-border rounded-xl mt-1"
-                        placeholder="Your name"
-                      />
+                      <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="bg-secondary border-border rounded-xl mt-1" placeholder="Your name" />
                     </div>
                     <div>
                       <Label>Email *</Label>
-                      <Input
-                        type="email"
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        className="bg-secondary border-border rounded-xl mt-1"
-                        placeholder="you@email.com"
-                      />
+                      <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="bg-secondary border-border rounded-xl mt-1" placeholder="you@email.com" />
                     </div>
                     <div>
                       <Label>Phone (optional)</Label>
-                      <Input
-                        value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        className="bg-secondary border-border rounded-xl mt-1"
-                        placeholder="(555) 123-4567"
-                      />
+                      <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="bg-secondary border-border rounded-xl mt-1" placeholder="(555) 123-4567" />
                     </div>
                     <div>
                       <Label>Number of Spots</Label>
                       <Select value={form.spots} onValueChange={(v) => setForm({ ...form, spots: v })}>
-                        <SelectTrigger className="bg-secondary border-border rounded-xl mt-1">
-                          <SelectValue />
-                        </SelectTrigger>
+                        <SelectTrigger className="bg-secondary border-border rounded-xl mt-1"><SelectValue /></SelectTrigger>
                         <SelectContent>
-                          {[1, 2, 3, 4].map((n) => (
-                            <SelectItem key={n} value={String(n)}>{n}</SelectItem>
-                          ))}
+                          {[1, 2, 3, 4].map((n) => <SelectItem key={n} value={String(n)}>{n}</SelectItem>)}
                         </SelectContent>
                       </Select>
                     </div>
                     <div>
                       <Label>Promo Code</Label>
-                      <Input
-                        value={form.promo}
-                        onChange={(e) => setForm({ ...form, promo: e.target.value })}
-                        className="bg-secondary border-border rounded-xl mt-1"
-                        placeholder="Optional"
-                      />
+                      <Input value={form.promo} onChange={(e) => setForm({ ...form, promo: e.target.value })} className="bg-secondary border-border rounded-xl mt-1" placeholder="Optional" />
                     </div>
-                    <Button
-                      size="lg"
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl"
-                      onClick={handleBook}
-                      disabled={loading}
-                    >
+                    <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl" onClick={handleBook} disabled={loading}>
                       {loading ? <Loader2 className="animate-spin mr-2" size={18} /> : null}
                       {event.price === 0 ? "Register (Free)" : `Pay $${totalPrice}`}
                     </Button>

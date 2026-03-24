@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Camera, Play, Brain, Trophy, Send, Loader2, CheckCircle, Mail } from "lucide-react";
+import { Camera, Play, Brain, Trophy, Send, Loader2, CheckCircle, Mail, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AIAnalysisMockup from "@/components/mockups/AIAnalysisMockup";
+import ReplayMockup from "@/components/mockups/ReplayMockup";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -47,18 +49,18 @@ const About = () => {
     <div className="min-h-screen">
       <Navbar />
 
-      {/* About Cortana */}
+      {/* About Courtana */}
       <section className="pt-24 pb-20 px-4">
         <div className="container mx-auto max-w-5xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial="hidden" animate="visible" variants={stagger}>
               <motion.div variants={fadeInUp}>
-                <span className="label-text text-primary mb-4 block">About Cortana</span>
+                <span className="label-text text-primary mb-4 block">About Courtana</span>
                 <h1 className="section-title text-foreground mb-6">Smart courts. Smarter business.</h1>
               </motion.div>
               <motion.div variants={fadeInUp} className="space-y-4 text-muted-foreground">
                 <p>
-                  Cortana is a sports technology company that turns ordinary courts into intelligent playing environments.
+                  Courtana is a sports technology company that turns ordinary courts into intelligent playing environments.
                   Our camera-based system captures every shot, analyzes patterns with AI, and delivers insights that help
                   players improve and venues grow.
                 </p>
@@ -67,9 +69,17 @@ const About = () => {
                   Just show up, play, and let the court do the rest.
                 </p>
                 <p>
-                  For venues, Cortana is a revenue multiplier. Our event programming, gamification features, and data-driven
+                  For venues, Courtana is a revenue multiplier. Our event programming, gamification features, and data-driven
                   insights drive court utilization, player retention, and new revenue streams that didn't exist before.
                 </p>
+              </motion.div>
+              <motion.div variants={fadeInUp} className="mt-6">
+                <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl gap-2">
+                  <a href="https://courtana.com" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink size={16} />
+                    Learn more at courtana.com
+                  </a>
+                </Button>
               </motion.div>
             </motion.div>
             <motion.div
@@ -100,7 +110,7 @@ const About = () => {
             The Technology
           </motion.h2>
           <motion.div
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -120,6 +130,12 @@ const About = () => {
               </motion.div>
             ))}
           </motion.div>
+
+          {/* Tech mockups */}
+          <div className="grid lg:grid-cols-2 gap-6">
+            <AIAnalysisMockup />
+            <ReplayMockup />
+          </div>
         </div>
       </section>
 
@@ -136,7 +152,7 @@ const About = () => {
               Get in Touch
             </motion.h2>
             <motion.p variants={fadeInUp} className="text-muted-foreground text-center mb-8">
-              Interested in bringing Cortana to your venue? Drop us a line.
+              Interested in bringing Courtana to your venue? Drop us a line.
             </motion.p>
 
             {submitted ? (
@@ -149,38 +165,17 @@ const About = () => {
               <motion.form variants={fadeInUp} onSubmit={handleSubmit} className="glass rounded-2xl p-6 space-y-4">
                 <div>
                   <Label>Name</Label>
-                  <Input
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="bg-secondary border-border rounded-xl mt-1"
-                    placeholder="Your name"
-                  />
+                  <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="bg-secondary border-border rounded-xl mt-1" placeholder="Your name" />
                 </div>
                 <div>
                   <Label>Email</Label>
-                  <Input
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="bg-secondary border-border rounded-xl mt-1"
-                    placeholder="you@email.com"
-                  />
+                  <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="bg-secondary border-border rounded-xl mt-1" placeholder="you@email.com" />
                 </div>
                 <div>
                   <Label>Message</Label>
-                  <Textarea
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="bg-secondary border-border rounded-xl mt-1 min-h-[120px]"
-                    placeholder="Tell us about your venue..."
-                  />
+                  <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="bg-secondary border-border rounded-xl mt-1 min-h-[120px]" placeholder="Tell us about your venue..." />
                 </div>
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl"
-                  disabled={submitting}
-                >
+                <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl" disabled={submitting}>
                   {submitting ? <Loader2 className="animate-spin mr-2" size={18} /> : <Send size={18} className="mr-2" />}
                   Send Message
                 </Button>
@@ -189,7 +184,9 @@ const About = () => {
 
             <div className="text-center mt-8 space-y-2 text-sm text-muted-foreground">
               <p className="flex items-center justify-center gap-2"><Mail size={14} /> bill@courtana.com</p>
-              <p>courtana.com</p>
+              <a href="https://courtana.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-primary transition-colors">
+                <ExternalLink size={12} /> courtana.com
+              </a>
             </div>
           </motion.div>
         </div>

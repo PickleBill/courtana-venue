@@ -18,9 +18,9 @@ export const events: EventData[] = [
   {
     id: "launch-night",
     title: "Launch Night Open Play",
-    description: "Kick off the Cortana × Peak partnership with a free night of open play, live demos, and prizes.",
+    description: "Kick off the Courtana × Peak partnership with a free night of open play, live demos, and prizes.",
     longDescription: [
-      "Join us for the grand opening of the Cortana × Peak partnership! This free event is your first chance to experience smart court technology in action.",
+      "Join us for the grand opening of the Courtana × Peak partnership! This free event is your first chance to experience smart court technology in action.",
       "We'll have courts running all night with live stat tracking, instant replay stations, and our AI analysis giving you real-time feedback on your game.",
       "Plus, stick around for raffles, giveaways, and a sneak peek at the full 8-week event lineup. Bring a friend — the more the merrier.",
       "All skill levels welcome. Paddles and balls provided. Just show up ready to play."
@@ -42,7 +42,7 @@ export const events: EventData[] = [
     longDescription: [
       "Coach Michael brings 15 years of racquet sports experience and IPTPA certification to this focused 90-minute clinic.",
       "The session breaks down into three segments: warm-up drills (20 min), focused skill work on third-shot drops and resets (40 min), and live game application (30 min).",
-      "With Cortana's smart court tech, you'll see your shot data in real time — spin rate, placement accuracy, and consistency metrics that help you understand exactly where to improve.",
+      "With Courtana's smart court tech, you'll see your shot data in real time — spin rate, placement accuracy, and consistency metrics that help you understand exactly where to improve.",
       "Limited to 16 players (4 per court) to ensure personalized attention and maximum reps."
     ],
     date: "2026-04-02",
@@ -62,7 +62,7 @@ export const events: EventData[] = [
     longDescription: [
       "Grab a partner and play for a cause! This round robin pairs you with different partners throughout the afternoon for a fun, competitive experience.",
       "Every dollar of your entry fee goes directly to the Peak Youth Sports Foundation, supporting equipment grants and court access for underserved kids.",
-      "Cortana's smart courts will track every match — and at the end of the day, we'll award prizes for Most Aces, Best Rally, and the coveted 'Heart of the Court' sportsmanship award.",
+      "Courtana's smart courts will track every match — and at the end of the day, we'll award prizes for Most Aces, Best Rally, and the coveted 'Heart of the Court' sportsmanship award.",
       "Light refreshments provided. Medals for the top 3 teams."
     ],
     date: "2026-04-05",
@@ -101,7 +101,7 @@ export const events: EventData[] = [
     description: "Competitive doubles tournament with bracket play, live leaderboards, and prizes for the top teams.",
     longDescription: [
       "Friday Night Fights is where the competitive players come to battle. Bring your A-game and a partner — this is bracket-style doubles with real stakes.",
-      "We run a double-elimination bracket with games to 11, win by 2. Cortana's live leaderboard shows real-time standings, and our smart courts capture every point for post-match analysis.",
+      "We run a double-elimination bracket with games to 11, win by 2. Courtana's live leaderboard shows real-time standings, and our smart courts capture every point for post-match analysis.",
       "Top 3 teams win prizes: gift cards, free clinic passes, and bragging rights on the permanent Peak leaderboard.",
       "Check-in starts at 6:30 PM. First serve at 7:00 PM sharp. Estimated finish by 9:30 PM."
     ],
@@ -120,9 +120,9 @@ export const events: EventData[] = [
     title: "Pro-Am Exhibition",
     description: "Watch local pros play, then join them on court. A showcase of what smart court tech can do at the highest level.",
     longDescription: [
-      "The Pro-Am Exhibition is the crown jewel of the Cortana × Peak launch. Watch top-rated local pros demonstrate elite-level play while Cortana's AI breaks down their techniques in real time on the big screen.",
+      "The Pro-Am Exhibition is the crown jewel of the Courtana × Peak launch. Watch top-rated local pros demonstrate elite-level play while Courtana's AI breaks down their techniques in real time on the big screen.",
       "After the exhibition matches, it's your turn. Sign up for a chance to play alongside the pros in mixed doubles games. Our AI will compare your stats to the pros — it's humbling, hilarious, and incredibly educational.",
-      "The event includes a Q&A panel with the pros, a Cortana tech demo, and a preview of premium features coming to Peak.",
+      "The event includes a Q&A panel with the pros, a Courtana tech demo, and a preview of premium features coming to Peak.",
       "Food trucks on site. This is the event you don't want to miss."
     ],
     date: "2026-04-19",

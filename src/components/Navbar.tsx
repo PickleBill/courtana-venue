@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 const navLinks = [
   { label: "Events", href: "/events" },
   { label: "Schedule", href: "/schedule" },
+  { label: "Dashboard", href: "/dashboard" },
   { label: "About", href: "/about" },
 ];
 
@@ -16,9 +17,14 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <Link to="/" className="text-xl font-bold tracking-tight">
-          <span className="text-gradient-green">Cortana</span>{" "}
-          <span className="text-foreground">Connect</span>
+        <Link to="/" className="flex flex-col leading-tight">
+          <div className="text-xl font-bold tracking-tight">
+            <span className="text-gradient-green">Courtana</span>{" "}
+            <span className="text-foreground">Connect</span>
+          </div>
+          <a href="https://courtana.com" target="_blank" rel="noopener noreferrer" className="text-[10px] text-muted-foreground hover:text-primary transition-colors -mt-0.5">
+            by courtana.com
+          </a>
         </Link>
 
         {/* Desktop */}
