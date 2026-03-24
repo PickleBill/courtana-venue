@@ -9,6 +9,7 @@ import { weekPartners } from "@/data/partners";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import EcosystemFlywheel from "@/components/partners/EcosystemFlywheel";
 import LeaderboardMockup from "@/components/mockups/LeaderboardMockup";
 import BadgesMockup from "@/components/mockups/BadgesMockup";
 import AIAnalysisMockup from "@/components/mockups/AIAnalysisMockup";
