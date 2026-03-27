@@ -504,10 +504,10 @@ const Landing = () => {
         <div className="container mx-auto max-w-3xl text-center relative z-10">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.h2 variants={fadeInUp} className="text-foreground mb-4 font-extrabold" style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.15 }}>
-              Let's build something worth talking about.
+              Ready to build something worth talking about?
             </motion.h2>
             <motion.p variants={fadeInUp} className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
-              The pilot starts the moment you say yes. Hardware installed in days. First event within the week.
+              April 7 is right around the corner. Let's lock in the install date.
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 py-6 text-lg font-bold glow-green gap-3" asChild>
