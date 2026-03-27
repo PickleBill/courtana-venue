@@ -281,12 +281,12 @@ const Landing = () => {
             Real footage from real courts. This is what Courtana looks like on game day.
           </motion.p>
           <motion.div className="grid md:grid-cols-3 gap-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {/* Panel 1 - Court Display — CDN image */}
+            {/* Panel 1 - Court Display — static image */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
               <div className="relative">
                 <img
-                  src="https://cdn.courtana.com/assets/livefeedcourt+(Medium).png"
-                  alt="Court Display — Live Feed"
+                  src="https://peakpickleball.club/wp-content/uploads/2026/03/IMG_2132-scaled.jpeg"
+                  alt="Peak Pickleball — Smart Court Facility"
                   className="w-full h-48 object-cover"
                   loading="lazy"
                 />
@@ -294,9 +294,9 @@ const Landing = () => {
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <Monitor size={16} className="text-primary" />
-                  <span className="text-sm font-bold text-foreground">Court Display — Live View</span>
+                  <span className="text-sm font-bold text-foreground">Peak Pickleball — Smart Court Venue</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Stats, highlights, and leaderboards in real time.</p>
+                <p className="text-sm text-muted-foreground">19 courts. 6 Courtana smart courts live April 7.</p>
               </div>
             </motion.div>
 
