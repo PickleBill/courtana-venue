@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Camera, Play, Brain, Trophy, Send, Loader2, CheckCircle, Mail, ExternalLink } from "lucide-react";
+import { Camera, Play, Brain, Trophy, Send, Loader2, CheckCircle, Mail, ExternalLink, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";

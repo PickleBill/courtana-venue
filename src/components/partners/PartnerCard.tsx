@@ -29,7 +29,7 @@ const fadeInUp = {
 
 export const PartnerCard = ({ partner }: { partner: Partner }) => (
   <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden glow-green-hover transition-all duration-300 hover:-translate-y-1 flex flex-col">
-    {partner.videoUrl && (
+    {partner.videoUrl ? (
       <div className="relative">
         <video
           src={partner.videoUrl}
@@ -44,7 +44,16 @@ export const PartnerCard = ({ partner }: { partner: Partner }) => (
           <span className="text-[10px] font-bold text-primary">Courtana Live</span>
         </div>
       </div>
-    )}
+    ) : partner.imageUrl ? (
+      <div className="relative">
+        <img
+          src={partner.imageUrl}
+          alt={partner.name}
+          className="w-full h-40 object-cover"
+          loading="lazy"
+        />
+      </div>
+    ) : null}
     <div className="p-8 flex flex-col flex-1">
       <div className="flex items-start justify-between mb-5">
         <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">

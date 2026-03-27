@@ -51,15 +51,17 @@ export const partners: Partner[] = [
     description: "Upscale outdoor pickleball complex in the Raleigh-Durham market with 12 championship courts.",
     connection: "Expansion market venue. Courtana install planned for Q3 2026.",
     icon: MapPin,
+    imageUrl: "https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/ec96dfd7-0230-405d-82bd-178872f97277.jpeg",
   },
   {
     name: "Urban Pickleball ATX",
     category: "Venue",
     url: "#",
     status: "Coming Soon",
-    description: "Austin's newest indoor pickleball destination — 8 courts, rooftop bar, and a focus on competitive play.",
+    description: "Downtown Austin's premier indoor pickleball destination — 6 courts, rooftop bar, and a focus on competitive play.",
     connection: "First Texas venue partner. Smart courts for league and tournament play.",
     icon: MapPin,
+    imageUrl: "https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/a56fe78b-c504-4d1a-bb72-b37a9573da0c.jpeg",
   },
   {
     name: "Courtana Smart Courts",

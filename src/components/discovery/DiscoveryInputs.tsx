@@ -44,18 +44,32 @@ const DiscoveryInputs = ({ data, update }: Props) => {
           <Input value={data.venueName} onChange={(e) => update({ venueName: e.target.value })} className="bg-secondary/50 border-border h-9 text-sm" />
         </Field>
         <div className="grid grid-cols-2 gap-3">
-          <Field label="Courts">
-            <Input type="number" value={data.courts} onChange={(e) => update({ courts: +e.target.value })} className="bg-secondary/50 border-border h-9 text-sm" />
-          </Field>
-          <Field label="Members">
-            <Input type="number" value={data.members} onChange={(e) => update({ members: +e.target.value })} className="bg-secondary/50 border-border h-9 text-sm" />
-          </Field>
-          <Field label="Monthly Bookings">
-            <Input type="number" value={data.monthlyBookings} onChange={(e) => update({ monthlyBookings: +e.target.value })} className="bg-secondary/50 border-border h-9 text-sm" />
-          </Field>
-          <Field label="Monthly Events">
-            <Input type="number" value={data.monthlyEvents} onChange={(e) => update({ monthlyEvents: +e.target.value })} className="bg-secondary/50 border-border h-9 text-sm" />
-          </Field>
+          {([
+            { label: "Courts", key: "courts" as const, step: 1, min: 1 },
+            { label: "Members", key: "members" as const, step: 50, min: 0 },
+            { label: "Monthly Bookings", key: "monthlyBookings" as const, step: 100, min: 0 },
+            { label: "Monthly Events", key: "monthlyEvents" as const, step: 1, min: 0 },
+          ] as const).map((field) => (
+            <Field key={field.key} label={field.label}>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => update({ [field.key]: Math.max(field.min, data[field.key] - field.step) })}
+                  className="w-9 h-9 rounded-lg bg-secondary/50 border border-border flex items-center justify-center text-foreground hover:bg-primary/10 hover:border-primary/30 transition-colors font-bold text-lg"
+                >
+                  −
+                </button>
+                <span className="flex-1 text-center text-sm font-bold text-foreground tabular-nums">{data[field.key].toLocaleString()}</span>
+                <button
+                  type="button"
+                  onClick={() => update({ [field.key]: data[field.key] + field.step })}
+                  className="w-9 h-9 rounded-lg bg-secondary/50 border border-border flex items-center justify-center text-foreground hover:bg-primary/10 hover:border-primary/30 transition-colors font-bold text-lg"
+                >
+                  +
+                </button>
+              </div>
+            </Field>
+          ))}
         </div>
         <Field label="Has F&B Revenue?">
           <div className="flex items-center gap-2">

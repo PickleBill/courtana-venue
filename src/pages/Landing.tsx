@@ -391,29 +391,37 @@ const Landing = () => {
               <motion.div
                 key={v.title}
                 variants={fadeInUp}
-                className={`glass rounded-2xl overflow-hidden transition-all duration-300 ${activeCard === i ? "ring-1 ring-primary/40 shadow-lg shadow-primary/10" : "glow-green-hover hover:-translate-y-1"}`}
+                className={`rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer ${activeCard === i ? "bg-primary/10 ring-1 ring-primary/30 shadow-lg shadow-primary/10" : "glass glow-green-hover hover:-translate-y-1"}`}
                 onMouseEnter={() => setActiveCard(i)}
                 onMouseLeave={() => setActiveCard(null)}
                 onClick={() => setActiveCard(activeCard === i ? null : i)}
               >
-                <div className="p-8">
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                    <v.icon className="text-primary" size={28} />
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
-                  <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
-                </div>
-
-                <AnimatePresence>
-                  {activeCard === i && (
+                {/* Default state: icon + title + desc */}
+                <AnimatePresence mode="wait">
+                  {activeCard !== i ? (
                     <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden border-t border-border"
+                      key="default"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="p-8"
                     >
-                      {/* Hover content */}
+                      <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                        <v.icon className="text-primary" size={28} />
+                      </div>
+                      <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
+                      <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="active"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {/* Active state: visual + CTA */}
                       {v.hoverType === "leaderboard" && (
                         <div className="p-4">
                           <LeaderboardMockup />
@@ -423,7 +431,7 @@ const Landing = () => {
                         <div className="relative bg-black">
                           <iframe
                             src={v.hoverSrc}
-                            className="w-full h-48 border-0"
+                            className="w-full h-52 border-0"
                             title={v.title}
                             allow="autoplay"
                             loading="lazy"
@@ -436,21 +444,18 @@ const Landing = () => {
                       )}
                       {v.hoverType === "image" && v.hoverSrc && (
                         <div className="relative">
-                          <img src={v.hoverSrc} alt={v.title} className="w-full h-48 object-cover" loading="lazy" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                          <img src={v.hoverSrc} alt={v.title} className="w-full h-52 object-cover" loading="lazy" />
                         </div>
                       )}
                       {v.hoverType === "link" && (
-                        <div className="p-6 bg-primary/5 flex items-center justify-center">
-                          <div className="text-center">
-                            <v.icon className="text-primary mx-auto mb-3" size={32} />
-                            <p className="text-sm text-muted-foreground mb-3">Click below to explore</p>
-                          </div>
+                        <div className="p-8 flex flex-col items-center justify-center min-h-[200px]">
+                          <v.icon className="text-primary mb-3" size={40} />
+                          <h3 className="text-lg font-bold text-foreground mb-2">{v.title}</h3>
                         </div>
                       )}
 
-                      {/* CTA button */}
-                      <div className="p-4 bg-secondary/30">
+                      {/* CTA */}
+                      <div className="p-4">
                         {v.hoverCta && "to" in v.hoverCta ? (
                           <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
                             <Link to={v.hoverCta.to!}>
