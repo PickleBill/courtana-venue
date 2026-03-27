@@ -348,14 +348,6 @@ const Landing = () => {
             </motion.div>
           </motion.div>
 
-          {/* Stat strip */}
-          <motion.div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground mt-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-            <span className="font-semibold text-foreground">4,097</span> Highlights Captured
-            <span className="text-border">·</span>
-            <span className="font-semibold text-foreground">25</span> Ranked Players
-            <span className="text-border">·</span>
-            <span className="font-semibold text-foreground">82+</span> Badges Earned
-          </motion.div>
         </div>
       </section>
 
