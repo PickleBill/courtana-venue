@@ -230,7 +230,7 @@ const About = () => {
             )}
 
             <div className="text-center mt-8 space-y-2 text-sm text-muted-foreground">
-              <p className="flex items-center justify-center gap-2"><Mail size={14} /> bill@courtana.com</p>
+              <p className="flex items-center justify-center gap-2"><Mail size={14} /> bill@playpicklebills.com</p>
               <a href="https://courtana.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-primary transition-colors">
                 <ExternalLink size={12} /> courtana.com
               </a>
