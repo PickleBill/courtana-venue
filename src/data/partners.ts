@@ -38,9 +38,10 @@ export const partners: Partner[] = [
     category: "Venue",
     url: "https://undergroundpickleball.com",
     status: "Live",
-    description: "Charlotte's underground pickleball scene — indoor courts, craft beer, and late-night play in a converted warehouse.",
+    description: "Raleigh's premier indoor pickleball destination — 8 courts, craft beer, and a community-first vibe in a converted warehouse.",
     connection: "Second Courtana venue partner. Smart courts powering league play and social events.",
     icon: MapPin,
+    videoUrl: "https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4",
   },
   {
     name: "Seven Oaks Pickleball",
