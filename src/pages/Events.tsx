@@ -11,6 +11,13 @@ import { events, categoryColors } from "@/data/events";
 
 const categories = ["All", "Clinic", "Tournament", "Open Play", "Special"];
 
+const categoryImages: Record<string, string> = {
+  Tournament: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=600&h=400&fit=crop",
+  Special: "https://images.unsplash.com/photo-1544991875-5dc1b05f607d?w=600&h=400&fit=crop",
+  Clinic: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&h=400&fit=crop",
+  "Open Play": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
+};
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
