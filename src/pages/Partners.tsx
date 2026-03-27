@@ -82,41 +82,27 @@ const Partners = () => {
             <EcosystemFlywheel />
           </motion.div>
 
-          {/* Featured Venue — Peak Pickleball Hero Card */}
+          {/* Featured Venue — Compact Card */}
           {peakPartner && (
             <motion.div
-              className="max-w-3xl mx-auto mt-10"
+              className="max-w-2xl mx-auto mt-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
             >
-              <a href={peakPartner.url} target="_blank" rel="noopener noreferrer" className="block glass rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/40 transition-colors shadow-2xl">
-                <div className="relative">
-                  <img
-                    src={peakPartner.imageUrl || "https://peakpickleball.club/wp-content/uploads/2026/03/IMG_2132-scaled.jpeg"}
-                    alt="Peak Pickleball — Featured Venue Partner"
-                    className="w-full h-56 md:h-72 object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-4 left-4 flex items-center gap-2">
-                    <span className="px-3 py-1.5 rounded-full bg-primary/90 text-primary-foreground text-xs font-bold uppercase tracking-wider">
-                      Featured Venue Partner
-                    </span>
+              <a href={peakPartner.url} target="_blank" rel="noopener noreferrer" className="block glass rounded-2xl border border-primary/20 hover:border-primary/40 transition-colors p-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Rocket className="text-primary" size={24} />
                   </div>
-                  <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
-                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                    <span className="text-xs font-semibold text-primary">Live — April 7</span>
-                  </div>
-                </div>
-                <div className="p-6 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <MapPin className="text-primary" size={20} />
-                    <div className="text-left">
-                      <div className="font-bold text-foreground text-lg">{peakPartner.name}</div>
-                      <div className="text-sm text-muted-foreground">19 Courts · Greensboro, NC · 6 Smart Courts Live</div>
+                  <div className="flex-1 text-left">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-bold text-foreground text-lg">{peakPartner.name}</span>
+                      <span className="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider border border-primary/20">Flagship Venue</span>
                     </div>
+                    <div className="text-sm text-muted-foreground">19 Courts · Greensboro, NC · 6 Smart Courts Live April 7</div>
                   </div>
-                  <ExternalLink size={16} className="text-muted-foreground" />
+                  <ExternalLink size={16} className="text-muted-foreground flex-shrink-0" />
                 </div>
               </a>
             </motion.div>

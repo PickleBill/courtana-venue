@@ -11,6 +11,13 @@ import { events, categoryColors } from "@/data/events";
 
 const categories = ["All", "Clinic", "Tournament", "Open Play", "Special"];
 
+const categoryImages: Record<string, string> = {
+  Tournament: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=600&h=400&fit=crop",
+  Special: "https://images.unsplash.com/photo-1544991875-5dc1b05f607d?w=600&h=400&fit=crop",
+  Clinic: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&h=400&fit=crop",
+  "Open Play": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
+};
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
@@ -61,10 +68,12 @@ const Events = () => {
           {featured && (
             <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="mb-10">
               <div className="glass rounded-2xl overflow-hidden glow-green border-primary/20">
-                <div className="relative h-56 bg-gradient-to-br from-primary/20 via-card to-accent/10 flex items-center justify-center">
-                  <div className="text-center">
-                    <span className="text-sm font-bold px-4 py-1.5 rounded-full bg-accent/20 text-accent mb-3 inline-block">{featured.badge}</span>
-                    <h2 className="text-2xl md:text-3xl font-extrabold text-foreground px-4">{featured.title}</h2>
+                <div className="relative h-56 overflow-hidden">
+                  <img src={categoryImages[featured.category] || categoryImages.Special} alt={featured.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <span className="text-sm font-bold px-4 py-1.5 rounded-full bg-accent/20 text-accent mb-2 inline-block">{featured.badge}</span>
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-white">{featured.title}</h2>
                   </div>
                   <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm rounded-xl px-4 py-2 text-sm font-bold text-foreground">
                     {format(parseISO(featured.date), "MMM d, yyyy")}
@@ -126,13 +135,15 @@ const Events = () => {
               return (
                 <motion.div key={event.id} variants={fadeInUp}>
                   <div className="glass rounded-2xl overflow-hidden glow-green-hover transition-all duration-300 hover:-translate-y-0.5 group">
-                    <div className="relative h-44 bg-gradient-to-br from-secondary to-card flex items-center justify-center">
-                      <div className="flex flex-col items-center gap-2">
-                        <span className={`text-xs font-bold px-3 py-1 rounded-full ${categoryColors[event.category]}`}>
+                    <div className="relative h-44 overflow-hidden">
+                      <img src={categoryImages[event.category] || categoryImages.Special} alt={event.title} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      <div className="absolute bottom-3 left-3 flex flex-col gap-1.5">
+                        <span className={`text-xs font-bold px-3 py-1 rounded-full ${categoryColors[event.category]} w-fit`}>
                           {event.category}
                         </span>
                         {event.badge && (
-                          <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent/20 text-accent">{event.badge}</span>
+                          <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent/20 text-accent w-fit">{event.badge}</span>
                         )}
                       </div>
                       <div className="absolute top-3 right-3 bg-background/90 backdrop-blur-sm rounded-xl px-3 py-1.5 text-xs font-bold text-foreground">

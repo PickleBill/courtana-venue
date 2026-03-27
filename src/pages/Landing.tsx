@@ -187,9 +187,7 @@ const Landing = () => {
 
         <div className="container mx-auto max-w-6xl relative z-10">
           <motion.div initial="hidden" animate="visible" variants={stagger}>
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-              {/* Left — Title + CTAs */}
-              <div className="text-left">
+            <div className="max-w-3xl mx-auto text-center">
                 <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 mb-8">
                   <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
                   <span className="text-base font-semibold text-primary tracking-wide">Live Partnership Portal</span>
@@ -199,11 +197,11 @@ const Landing = () => {
                   Courtana × <span className="text-gradient-green">Peak Pickleball</span>
                 </motion.h1>
 
-                <motion.p variants={fadeInUp} className="text-lg text-muted-foreground mb-10 leading-relaxed">
+                <motion.p variants={fadeInUp} className="text-lg text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto">
                   Smart courts. Real data. Zero upfront cost. Your 8-week pilot starts April 7.
                 </motion.p>
 
-                <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+                <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 py-6 text-lg font-bold glow-green" asChild>
                     <a href="#plan">
                       See the Plan
@@ -214,23 +212,6 @@ const Landing = () => {
                     <Link to="/events">Browse Events</Link>
                   </Button>
                 </motion.div>
-              </div>
-
-              {/* Right — Peak Facility Image */}
-              <motion.div variants={fadeInUp}>
-                <a href="https://peakpickleball.club" target="_blank" rel="noopener noreferrer" className="block rounded-2xl overflow-hidden border border-primary/20 shadow-2xl hover:border-primary/40 transition-colors">
-                  <img
-                    src="https://peakpickleball.club/wp-content/uploads/2026/03/IMG_2132-scaled.jpeg"
-                    alt="Peak Pickleball — 19 Courts, Greensboro NC"
-                    className="w-full h-72 lg:h-80 object-cover"
-                    loading="lazy"
-                  />
-                  <div className="p-4 flex items-center justify-between bg-card/80">
-                    <span className="text-sm font-bold text-foreground">Peak Pickleball — 19 Courts, Greensboro NC</span>
-                    <ExternalLink size={14} className="text-muted-foreground" />
-                  </div>
-                </a>
-              </motion.div>
             </div>
 
             {/* Hero Highlight Video — Full Width Below */}
@@ -300,12 +281,12 @@ const Landing = () => {
             Real footage from real courts. This is what Courtana looks like on game day.
           </motion.p>
           <motion.div className="grid md:grid-cols-3 gap-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {/* Panel 1 - Court Display — CDN image */}
+            {/* Panel 1 - Court Display — static image */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
               <div className="relative">
                 <img
-                  src="https://cdn.courtana.com/assets/livefeedcourt+(Medium).png"
-                  alt="Court Display — Live Feed"
+                  src="https://peakpickleball.club/wp-content/uploads/2026/03/IMG_2132-scaled.jpeg"
+                  alt="Peak Pickleball — Smart Court Facility"
                   className="w-full h-48 object-cover"
                   loading="lazy"
                 />
@@ -313,9 +294,9 @@ const Landing = () => {
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <Monitor size={16} className="text-primary" />
-                  <span className="text-sm font-bold text-foreground">Court Display — Live View</span>
+                  <span className="text-sm font-bold text-foreground">Peak Pickleball — Smart Court Venue</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Stats, highlights, and leaderboards in real time.</p>
+                <p className="text-sm text-muted-foreground">19 courts. 6 Courtana smart courts live April 7.</p>
               </div>
             </motion.div>
 
@@ -347,33 +328,26 @@ const Landing = () => {
               </div>
             </motion.div>
 
-            {/* Panel 3 - Peak AI Analysis — keep video with LIVE badge */}
+            {/* Panel 3 - Gamification Preview — static image */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
               <div className="relative">
-                <video src={CDN_VIDEO} autoPlay muted loop playsInline className="w-full h-48 object-cover" />
-                <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  <span className="text-[10px] font-bold text-primary">LIVE</span>
-                </div>
+                <img
+                  src="https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/7d7e5202-8a02-4188-a7a4-c9c8ef596fb1.jpeg"
+                  alt="Courtana Gamification — Badges & Leaderboards"
+                  className="w-full h-48 object-cover"
+                  loading="lazy"
+                />
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-2">
-                  <Zap size={16} className="text-primary" />
-                  <span className="text-sm font-bold text-foreground">Peak AI Analysis — Live Match Review</span>
+                  <Gamepad2 size={16} className="text-primary" />
+                  <span className="text-sm font-bold text-foreground">Gamification — Badges & Leaderboards</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Advanced match analysis with shot-by-shot breakdown.</p>
+                <p className="text-sm text-muted-foreground">XP, achievements, and weekly leaderboards that keep players coming back.</p>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Stat strip */}
-          <motion.div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground mt-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-            <span className="font-semibold text-foreground">4,097</span> Highlights Captured
-            <span className="text-border">·</span>
-            <span className="font-semibold text-foreground">25</span> Ranked Players
-            <span className="text-border">·</span>
-            <span className="font-semibold text-foreground">82+</span> Badges Earned
-          </motion.div>
         </div>
       </section>
 
@@ -391,88 +365,40 @@ const Landing = () => {
               <motion.div
                 key={v.title}
                 variants={fadeInUp}
-                className={`rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer ${activeCard === i ? "bg-primary/10 ring-1 ring-primary/30 shadow-lg shadow-primary/10" : "glass glow-green-hover hover:-translate-y-1"}`}
+                className={`glass rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer glow-green-hover hover:-translate-y-1 ${activeCard === i ? "bg-primary/10 ring-1 ring-primary/30" : ""}`}
                 onMouseEnter={() => setActiveCard(i)}
                 onMouseLeave={() => setActiveCard(null)}
-                onClick={() => setActiveCard(activeCard === i ? null : i)}
               >
-                {/* Default state: icon + title + desc */}
-                <AnimatePresence mode="wait">
+                <div className="p-8">
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                    <v.icon className="text-primary" size={28} />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
                   {activeCard !== i ? (
-                    <motion.div
-                      key="default"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="p-8"
-                    >
-                      <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                        <v.icon className="text-primary" size={28} />
-                      </div>
-                      <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
-                      <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
-                    </motion.div>
+                    <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
                   ) : (
-                    <motion.div
-                      key="active"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {/* Active state: visual + CTA */}
+                    <div className="mt-4">
                       {v.hoverType === "leaderboard" && (
-                        <div className="p-4">
+                        <div className="-mx-4 mb-4">
                           <LeaderboardMockup />
                         </div>
                       )}
-                      {v.hoverType === "iframe" && v.hoverSrc && (
-                        <div className="relative bg-black">
-                          <iframe
-                            src={v.hoverSrc}
-                            className="w-full h-52 border-0"
-                            title={v.title}
-                            allow="autoplay"
-                            loading="lazy"
-                          />
-                          <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
-                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                            <span className="text-[10px] font-bold text-primary">LIVE</span>
-                          </div>
-                        </div>
-                      )}
-                      {v.hoverType === "image" && v.hoverSrc && (
-                        <div className="relative">
-                          <img src={v.hoverSrc} alt={v.title} className="w-full h-52 object-cover" loading="lazy" />
-                        </div>
-                      )}
-                      {v.hoverType === "link" && (
-                        <div className="p-8 flex flex-col items-center justify-center min-h-[200px]">
-                          <v.icon className="text-primary mb-3" size={40} />
-                          <h3 className="text-lg font-bold text-foreground mb-2">{v.title}</h3>
-                        </div>
-                      )}
-
-                      {/* CTA */}
-                      <div className="p-4">
-                        {v.hoverCta && "to" in v.hoverCta ? (
-                          <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
-                            <Link to={v.hoverCta.to!}>
-                              {v.hoverCta.label} <ArrowRight size={14} className="ml-1" />
-                            </Link>
-                          </Button>
-                        ) : v.hoverCta ? (
-                          <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
-                            <a href={v.hoverCta.href} target="_blank" rel="noopener noreferrer">
-                              {v.hoverCta.label} <ExternalLink size={14} className="ml-1" />
-                            </a>
-                          </Button>
-                        ) : null}
-                      </div>
-                    </motion.div>
+                      {v.hoverCta && "to" in v.hoverCta ? (
+                        <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
+                          <Link to={v.hoverCta.to!}>
+                            {v.hoverCta.label} <ArrowRight size={14} className="ml-1" />
+                          </Link>
+                        </Button>
+                      ) : v.hoverCta ? (
+                        <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
+                          <a href={v.hoverCta.href} target="_blank" rel="noopener noreferrer">
+                            {v.hoverCta.label} <ExternalLink size={14} className="ml-1" />
+                          </a>
+                        </Button>
+                      ) : null}
+                    </div>
                   )}
-                </AnimatePresence>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -567,7 +493,7 @@ const Landing = () => {
           <motion.div className="grid md:grid-cols-3 gap-8 mb-14" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             {[
               { label: "Peak's Investment During Pilot", value: "$0", sub: "Hardware, software, events support, marketing — all on us for 8 weeks." },
-              { label: "Post-Pilot Subscription", value: "$95/court/mo", sub: "Only if you decide to continue. 6 courts = $570/mo. One coaching clinic covers it." },
+              { label: "Post-Pilot Subscription", value: "$95/court/mo", sub: "$0 during the 8-week pilot. Post-pilot: $95/court/mo for continued service. Cancel anytime." },
               { label: "Projected Revenue Lift", value: "$2,000–4,500/mo", sub: "From premium court pricing, coaching, events, and walk-ins combined.", gold: true },
             ].map((m) => (
               <motion.div key={m.label} variants={fadeInUp} className={`glass rounded-2xl p-8 text-center ${m.gold ? "border-accent/30 glow-green" : ""}`}>
@@ -614,7 +540,7 @@ const Landing = () => {
               Zero Risk
             </h3>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Start with 6 courts. Zero hardware cost. No subscription during the 8-week pilot. After that, $570/month — your first AI coaching clinic makes that back in a single session.
+              $0 during the 8-week pilot. Post-pilot: $95/court/mo for continued service. Cancel anytime. Your first AI coaching clinic covers the monthly cost.
             </p>
           </motion.div>
         </div>
