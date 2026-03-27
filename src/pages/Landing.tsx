@@ -365,88 +365,40 @@ const Landing = () => {
               <motion.div
                 key={v.title}
                 variants={fadeInUp}
-                className={`rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer ${activeCard === i ? "bg-primary/10 ring-1 ring-primary/30 shadow-lg shadow-primary/10" : "glass glow-green-hover hover:-translate-y-1"}`}
+                className={`glass rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer glow-green-hover hover:-translate-y-1 ${activeCard === i ? "bg-primary/10 ring-1 ring-primary/30" : ""}`}
                 onMouseEnter={() => setActiveCard(i)}
                 onMouseLeave={() => setActiveCard(null)}
-                onClick={() => setActiveCard(activeCard === i ? null : i)}
               >
-                {/* Default state: icon + title + desc */}
-                <AnimatePresence mode="wait">
+                <div className="p-8">
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                    <v.icon className="text-primary" size={28} />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
                   {activeCard !== i ? (
-                    <motion.div
-                      key="default"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="p-8"
-                    >
-                      <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                        <v.icon className="text-primary" size={28} />
-                      </div>
-                      <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
-                      <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
-                    </motion.div>
+                    <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
                   ) : (
-                    <motion.div
-                      key="active"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {/* Active state: visual + CTA */}
+                    <div className="mt-4">
                       {v.hoverType === "leaderboard" && (
-                        <div className="p-4">
+                        <div className="-mx-4 mb-4">
                           <LeaderboardMockup />
                         </div>
                       )}
-                      {v.hoverType === "iframe" && v.hoverSrc && (
-                        <div className="relative bg-black">
-                          <iframe
-                            src={v.hoverSrc}
-                            className="w-full h-52 border-0"
-                            title={v.title}
-                            allow="autoplay"
-                            loading="lazy"
-                          />
-                          <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
-                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                            <span className="text-[10px] font-bold text-primary">LIVE</span>
-                          </div>
-                        </div>
-                      )}
-                      {v.hoverType === "image" && v.hoverSrc && (
-                        <div className="relative">
-                          <img src={v.hoverSrc} alt={v.title} className="w-full h-52 object-cover" loading="lazy" />
-                        </div>
-                      )}
-                      {v.hoverType === "link" && (
-                        <div className="p-8 flex flex-col items-center justify-center min-h-[200px]">
-                          <v.icon className="text-primary mb-3" size={40} />
-                          <h3 className="text-lg font-bold text-foreground mb-2">{v.title}</h3>
-                        </div>
-                      )}
-
-                      {/* CTA */}
-                      <div className="p-4">
-                        {v.hoverCta && "to" in v.hoverCta ? (
-                          <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
-                            <Link to={v.hoverCta.to!}>
-                              {v.hoverCta.label} <ArrowRight size={14} className="ml-1" />
-                            </Link>
-                          </Button>
-                        ) : v.hoverCta ? (
-                          <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
-                            <a href={v.hoverCta.href} target="_blank" rel="noopener noreferrer">
-                              {v.hoverCta.label} <ExternalLink size={14} className="ml-1" />
-                            </a>
-                          </Button>
-                        ) : null}
-                      </div>
-                    </motion.div>
+                      {v.hoverCta && "to" in v.hoverCta ? (
+                        <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
+                          <Link to={v.hoverCta.to!}>
+                            {v.hoverCta.label} <ArrowRight size={14} className="ml-1" />
+                          </Link>
+                        </Button>
+                      ) : v.hoverCta ? (
+                        <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
+                          <a href={v.hoverCta.href} target="_blank" rel="noopener noreferrer">
+                            {v.hoverCta.label} <ExternalLink size={14} className="ml-1" />
+                          </a>
+                        </Button>
+                      ) : null}
+                    </div>
                   )}
-                </AnimatePresence>
+                </div>
               </motion.div>
             ))}
           </motion.div>
