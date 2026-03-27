@@ -6,14 +6,14 @@ import { Button } from "@/components/ui/button";
 const primaryLinks = [
   { label: "The Plan", href: "/" },
   { label: "Events", href: "/events" },
+  { label: "Partners", href: "/partners" },
   { label: "Dashboard", href: "/dashboard" },
 ];
 
 const moreLinks = [
-  { label: "Discovery", href: "/discovery" },
-  { label: "Partners", href: "/partners" },
   { label: "Schedule", href: "/schedule" },
   { label: "About", href: "/about" },
+  { label: "Discovery", href: "/discovery" },
 ];
 
 const Navbar = () => {
@@ -77,7 +77,7 @@ const Navbar = () => {
           </div>
 
           <Button variant="outline" size="sm" className="border-primary/30 text-primary hover:bg-primary/10" asChild>
-            <Link to="/dashboard">Partner Login</Link>
+            <Link to="/dashboard">View Dashboard</Link>
           </Button>
         </div>
 
@@ -103,7 +103,7 @@ const Navbar = () => {
             </Link>
           ))}
           <Button variant="outline" size="sm" className="w-full border-primary/30 text-primary hover:bg-primary/10 mt-2" asChild>
-            <Link to="/dashboard" onClick={() => setOpen(false)}>Partner Login</Link>
+            <Link to="/dashboard" onClick={() => setOpen(false)}>View Dashboard</Link>
           </Button>
         </div>
       )}
