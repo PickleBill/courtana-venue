@@ -1,97 +1,83 @@
 
 
-# Peak Pickleball — Next Steps: Priority Polish Pass
+# Quick Polish Pass — Landing, Partners, About, Discovery
 
-## Summary
-Eight changes across 5 files, split into **immediate** (this pass) and **deferred** (needs your CDN URLs). Focus: bring back leaderboard, make value props interactive, fix events flow, upgrade partners data, embed live display iframe, and prep for analytics.
+## 1. "See It In Action" — Center Panel Gets Peak Highlight Video
 
----
+**File:** `src/pages/Landing.tsx` (lines 297-353)
 
-## IMMEDIATE CHANGES (This Pass)
+Rearrange the 3 panels:
+- **Panel 1 (left):** Keep current Court Display static image (CDN livefeedcourt)
+- **Panel 2 (center):** Replace current AI Analysis static image with the **Peak AI Analysis video** extracted from `courtana.com/highlight/bcsPaTmCM2dw`:
+  - Video: `https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/6bc572b0-a198-41ad-89d2-7d2b985ce410.mp4`
+  - Poster: `https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/7d7e5202-8a02-4188-a7a4-c9c8ef596fb1.jpeg`
+  - `autoPlay muted loop playsInline` with LIVE badge
+  - Link wraps to `https://courtana.com/highlight/bcsPaTmCM2dw`
+- **Panel 3 (right):** Keep the existing CDN_VIDEO (the original highlight)
 
-### 1. Bring Back Leaderboard + Link to Gamification Panel
-**File:** `src/pages/Landing.tsx`
-- Restore the `LeaderboardMockup` component (it still exists at `src/components/mockups/LeaderboardMockup.tsx`)
-- Wire it as the hover/expand state for the "Gamification That Sticks" value prop card
-- Update the leaderboard link from `courtana.com` to `https://courtana.com/leaderboard/`
-- Add a "View Global Leaderboard" CTA button on the mockup that links out
+## 2. Landing Hero Layout — Move Peak Image to Top-Right, Compact Title
 
-### 2. Make Value Prop Cards Interactive (Hover Reveal)
-**File:** `src/pages/Landing.tsx`
-- Add `useState` to track which card is active (hover on desktop, click on mobile)
-- Each card gets a secondary visual that appears on hover/tap:
+**File:** `src/pages/Landing.tsx` (lines 188-248)
 
-| Card | Hover Content |
-|------|--------------|
-| Cameras on 6 Courts | Iframe of `https://courtana.com/display/ENgYPNHxUt7H` (public, confirmed working) |
-| We Run Your Events | Link flash to `/events` page with "Browse Events" CTA |
-| AI Coaching | Static image — use the existing AI analysis CDN image for now in green frame |
-| Gamification That Sticks | `LeaderboardMockup` component with link to `courtana.com/leaderboard/` |
-| Open Play, Solved | Show the court display iframe (same display URL) — real-time court status |
-| Live Broadcast | Keep current desc, link to display URL in new tab |
+- Move the "Courtana × Peak Pickleball" title and CTA buttons to the **left** side
+- Move the Peak facility image (`IMG_2132-scaled.jpeg`) to a **right column** alongside the title (use `grid lg:grid-cols-2` layout)
+- Keep the hero video below as full-width, unchanged
 
-- Cards expand with `AnimatePresence` on hover (desktop) or tap (mobile), showing a preview panel below the description
+## 3. Value Prop Cards — Green Background on Hover, Simplified
 
-### 3. Fix Events Page — Remove mailto, Restore Booking Flow
-**File:** `src/pages/Events.tsx`
-- Change `handleBook` from `mailto:` redirect to opening the booking modal (`setBookingEvent(event.id)`)
-- The booking modal already exists in the file (lines 181-218) but is never triggered because `handleBook` does mailto instead
-- Add a placeholder image area to each event card (gradient with category icon, already there but could use a real image if available)
+**File:** `src/pages/Landing.tsx` (lines 376-458)
 
-### 4. Upgrade Partners Data — Add Concord Venues from Concord Fork
+- On hover/active, change card background to `bg-primary/10` (green tint) instead of just ring
+- Replace the text description with the hover image/iframe content **inside the card body** (swap out the desc text)
+- Show a single CTA button at the bottom: "Browse Events", "View Live", "View Global Leaderboard", etc.
+- Remove the expanding `AnimatePresence` dropdown — instead, the card itself transitions its content
+
+## 4. Partners Page — Fix Underground Description, Add Venue Images
+
 **File:** `src/data/partners.ts`
-- Import the expanded partner list from the Concord version: add Underground Pickleball (Live), Concord Pickleball (Coming Soon), Urban Pickleball ATX (Coming Soon), Seven Oaks (Coming Soon), Capital City Pickleball, StretchLab, Bryant (Padel Bryant), Racket Science, G5quared
-- Add new category types: `"Influencer" | "Health & Wellness" | "Marketing"`
-- Keep Peak as first entry with its video
-- Add `categories?: PartnerCategory[]` to Partner interface for multi-category partners
 
-### 5. Clean Up Partners Page Hero
+- **Underground Pickleball:** Change location to "Raleigh, NC" (not Charlotte). Fix description to accurately describe it. Move the existing CDN video from Peak's entry to Underground's `videoUrl`.
+- **Seven Oaks:** Add `imageUrl` using CDN thumbnail from Favorites collection: `https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/ec96dfd7-0230-405d-82bd-178872f97277.jpeg`
+- **Urban Pickleball ATX:** Add `imageUrl` from Austin collection: `https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/a56fe78b-c504-4d1a-bb72-b37a9573da0c.jpeg`. Update description to mention 6 courts and "premier downtown Austin".
+- **Peak Pickleball:** Use the Peak facility image as `imageUrl`, keep no video (hero handles that)
+
+**File:** `src/components/partners/PartnerCard.tsx`
+
+- If partner has `imageUrl` but no `videoUrl`, render the image as a card header (same frame as video cards, `h-40 object-cover`)
+
 **File:** `src/pages/Partners.tsx`
-- Remove the "Live Evidence Strip" video section below the flywheel
-- Replace with Peak facility hero image (`https://peakpickleball.club/wp-content/uploads/2026/03/IMG_2132-scaled.jpeg`) as a featured venue card with "Featured Venue Partner" badge
-- Link to `peakpickleball.club`
 
-### 6. See It In Action — Middle Panel as Live Video
-**File:** `src/pages/Landing.tsx`
-- Panel 1 (Court Display): Keep static image, link to display URL
-- Panel 2 (AI Analysis): Embed as iframe `https://courtana.com/display/ENgYPNHxUt7H` with "LIVE" badge — this is the public display page
-- Panel 3 (Peak AI Analysis): Keep the CDN video with LIVE badge
+- Keep the existing Peak hero card at top (already uses facility image)
+- When "Venue Partners" tab is selected, show venue cards with their images
 
-### 7. Dashboard — Minor UX Improvements
-**File:** `src/pages/Dashboard.tsx`
-- Make the "Week 1 of 8" pill a clickable selector (dropdown or horizontal scroll of 1-8)
-- Make event table rows clickable — link to `/events` or the specific event detail page
-- Add hover states to the pilot scorecard cards
+## 5. About Page — Court Display Image Instead of Duplicate Video
 
-### 8. Discovery Page — Standardize Scrollbar UX
-**File:** `src/pages/Discovery.tsx` + `src/components/discovery/DiscoveryInputs.tsx`
-- Apply consistent `scrollbar-thin` styling to all scrollable sections
-- Ensure sliders and inputs don't cause layout shift when typing
+**File:** `src/pages/About.tsx` (lines 85-104)
 
----
+- Replace the hero video (same CDN_VIDEO as landing) with the **live court display** image from the uploaded reference (image-3.png — the Underground live feed view)
+- Use the CDN livefeedcourt image or the poster from the display page as a static image
+- Keep the "Courtana Smart Court" label badge, change text to "Live Court Display"
 
-## DEFERRED (Needs Your Input)
+## 6. Discovery Inputs — Better UX for Top Number Fields
 
-- **Unique video URLs** for each "See It In Action" panel — you mentioned Peak AI Analysis is in your collections. Both `/collections/` and `/leaderboard/` are login-gated, so I can't pull them. Provide CDN `.mp4` URLs and I'll swap instantly.
-- **Courtana display iframe**: The `courtana.com/display/ENgYPNHxUt7H` page is public and renders a live court view. I'll try embedding it as an iframe — if Courtana sets `X-Frame-Options: DENY`, it won't work and we'll fall back to a screenshot + link.
-- **Analytics/session tracking**: Requires connecting Lovable Cloud (Supabase) to capture visitor interactions on Discovery and Dashboard. This is a separate task — I'll set it up once you confirm you want it wired.
-- **Friends page**: You mentioned this is a new Courtana feature. Share the URL when ready and I can add it as a value prop or partner feature.
+**File:** `src/components/discovery/DiscoveryInputs.tsx` (lines 46-58)
+
+- Replace the `<Input type="number">` fields for Courts, Members, Monthly Bookings, Monthly Events with **stepper buttons** (+ / - buttons flanking a displayed value)
+- Use `flex items-center` with a minus button, the current value as centered text, and a plus button
+- Steps: Courts +/- 1, Members +/- 50, Monthly Bookings +/- 100, Monthly Events +/- 1
+- This eliminates the tiny embedded number input UX problem
 
 ---
 
 ## Files Changed
-- `src/pages/Landing.tsx` — interactive value props, leaderboard restore, See It In Action panels
-- `src/pages/Events.tsx` — fix booking flow (modal instead of mailto)
-- `src/data/partners.ts` — expanded partner list from Concord fork
-- `src/pages/Partners.tsx` — hero cleanup, Peak featured card
-- `src/pages/Dashboard.tsx` — week selector, clickable events
-- `src/pages/Discovery.tsx` — scrollbar consistency
-- `src/components/discovery/DiscoveryInputs.tsx` — scrollbar consistency
+- `src/pages/Landing.tsx` — hero layout, See It In Action center panel, value prop card hover style
+- `src/data/partners.ts` — Underground fix, venue images added
+- `src/components/partners/PartnerCard.tsx` — render imageUrl as card header
+- `src/pages/About.tsx` — swap hero video for court display image
+- `src/components/discovery/DiscoveryInputs.tsx` — stepper inputs for top fields
 
-## Technical Notes
-- `LeaderboardMockup` component already exists and works — just needs to be re-imported into Landing
-- The display iframe URL is public (confirmed via fetch — no login redirect)
-- Concord partner data is pulled directly from the Concord fork project
-- No new dependencies needed
-- All changes are additive — no existing animations or routing changes
+## Assets Pulled from Courtana CDN (all public, no auth)
+- Peak highlight video: `6bc572b0-a198-41ad-89d2-7d2b985ce410.mp4`
+- Seven Oaks thumbnail: `ec96dfd7-0230-405d-82bd-178872f97277.jpeg`
+- Urban ATX thumbnail: `a56fe78b-c504-4d1a-bb72-b37a9573da0c.jpeg`
 
