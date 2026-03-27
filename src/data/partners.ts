@@ -1,6 +1,6 @@
-import { Monitor, GraduationCap, Swords, ShoppingBag, Users, FlaskConical, Rocket, type LucideIcon } from "lucide-react";
+import { Monitor, GraduationCap, Swords, ShoppingBag, Users, FlaskConical, Rocket, MapPin, type LucideIcon } from "lucide-react";
 
-export type PartnerCategory = "Core Platform" | "Coaching" | "Community" | "Equipment" | "Technology" | "Agency";
+export type PartnerCategory = "Core Platform" | "Coaching" | "Community" | "Equipment" | "Technology" | "Agency" | "Venue";
 export type PartnerStatus = "Live" | "In Development" | "Coming Soon" | "Open Slot";
 
 export interface Partner {
@@ -11,6 +11,7 @@ export interface Partner {
   description: string;
   connection: string;
   icon: LucideIcon;
+  videoUrl?: string;
 }
 
 export interface WeekPartner {
@@ -20,6 +21,16 @@ export interface WeekPartner {
 }
 
 export const partners: Partner[] = [
+  {
+    name: "Peak Pickleball",
+    category: "Venue",
+    url: "https://peakpickleball.club",
+    status: "Live",
+    description: "Greensboro's premier pickleball destination — 16 courts, 250 members, and the first Courtana smart court venue in the Southeast.",
+    connection: "The flagship venue proving the smart court model. 6 Courtana courts live April 7. Full 16-court expansion in progress.",
+    icon: MapPin,
+    videoUrl: "https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4",
+  },
   {
     name: "Courtana Smart Courts",
     category: "Core Platform",

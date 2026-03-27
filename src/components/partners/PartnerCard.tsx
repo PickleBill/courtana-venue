@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Partner, PartnerCategory } from "@/data/partners";
 
@@ -10,6 +10,7 @@ const categoryColors: Record<PartnerCategory, string> = {
   "Equipment": "bg-red-500/20 text-red-400",
   "Technology": "bg-cyan-500/20 text-cyan-400",
   "Agency": "bg-pink-500/20 text-pink-400",
+  "Venue": "bg-primary/20 text-primary",
 };
 
 const statusColors: Record<string, string> = {
@@ -25,26 +26,44 @@ const fadeInUp = {
 };
 
 export const PartnerCard = ({ partner }: { partner: Partner }) => (
-  <motion.div variants={fadeInUp} className="glass rounded-2xl p-8 glow-green-hover transition-all duration-300 hover:-translate-y-1 flex flex-col">
-    <div className="flex items-start justify-between mb-5">
-      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-        <partner.icon className="text-primary" size={24} />
+  <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden glow-green-hover transition-all duration-300 hover:-translate-y-1 flex flex-col">
+    {partner.videoUrl && (
+      <div className="relative">
+        <video
+          src={partner.videoUrl}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-40 object-cover"
+        />
+        <div className="absolute top-2 left-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+          <Play size={10} className="text-primary" />
+          <span className="text-[10px] font-bold text-primary">Courtana Live</span>
+        </div>
       </div>
-      <span className={`text-xs px-3 py-1 rounded-full font-semibold ${statusColors[partner.status]}`}>
-        {partner.status}
+    )}
+    <div className="p-8 flex flex-col flex-1">
+      <div className="flex items-start justify-between mb-5">
+        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+          <partner.icon className="text-primary" size={24} />
+        </div>
+        <span className={`text-xs px-3 py-1 rounded-full font-semibold ${statusColors[partner.status]}`}>
+          {partner.status}
+        </span>
+      </div>
+      <h3 className="text-xl font-bold text-foreground mb-1">{partner.name}</h3>
+      <span className={`inline-block text-xs px-3 py-1 rounded-full font-semibold mb-4 w-fit ${categoryColors[partner.category]}`}>
+        {partner.category}
       </span>
+      <p className="text-base text-muted-foreground leading-relaxed mb-4 flex-1">{partner.description}</p>
+      <p className="text-sm text-muted-foreground/70 italic mb-6">🔗 {partner.connection}</p>
+      <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 w-full gap-2" asChild>
+        <a href={partner.url} target="_blank" rel="noopener noreferrer">
+          Visit Site <ExternalLink size={14} />
+        </a>
+      </Button>
     </div>
-    <h3 className="text-xl font-bold text-foreground mb-1">{partner.name}</h3>
-    <span className={`inline-block text-xs px-3 py-1 rounded-full font-semibold mb-4 w-fit ${categoryColors[partner.category]}`}>
-      {partner.category}
-    </span>
-    <p className="text-base text-muted-foreground leading-relaxed mb-4 flex-1">{partner.description}</p>
-    <p className="text-sm text-muted-foreground/70 italic mb-6">🔗 {partner.connection}</p>
-    <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 w-full gap-2" asChild>
-      <a href={partner.url} target="_blank" rel="noopener noreferrer">
-        Visit Site <ExternalLink size={14} />
-      </a>
-    </Button>
   </motion.div>
 );
 
