@@ -145,6 +145,44 @@ const About = () => {
             <AIAnalysisMockup />
             <ReplayMockup />
           </div>
+
+          {/* See Courtana in Action */}
+          <motion.div className="mt-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.h3 variants={fadeInUp} className="text-2xl font-extrabold text-foreground text-center mb-3">
+              See Courtana in Action
+            </motion.h3>
+            <motion.p variants={fadeInUp} className="text-muted-foreground text-center max-w-xl mx-auto mb-8">
+              This AI-generated highlight was captured automatically from a live match — no editing, no setup. Every Peak player will get these on April 7.
+            </motion.p>
+            <motion.div variants={fadeInUp} className="max-w-2xl mx-auto rounded-2xl overflow-hidden border border-primary/20 shadow-2xl relative mb-8">
+              <div className="absolute top-3 left-3 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                <Play size={12} className="text-primary" />
+                <span className="text-xs font-semibold text-primary">Auto-Generated Highlight</span>
+              </div>
+              <video
+                src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full max-h-80 object-cover"
+                poster="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/01915c59-9bb7-4683-bd53-e28bddcae12e.jpeg"
+              />
+            </motion.div>
+            <motion.div variants={fadeInUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+              {[
+                { value: "4,097", label: "Highlights Captured" },
+                { value: "25", label: "Ranked Players" },
+                { value: "82+", label: "Badges Earned" },
+                { value: "Apr 7", label: "Peak Goes Live" },
+              ].map((s) => (
+                <div key={s.label} className="glass rounded-xl p-4 text-center">
+                  <div className="text-xl font-extrabold text-gradient-green">{s.value}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
