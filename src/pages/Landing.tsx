@@ -493,7 +493,7 @@ const Landing = () => {
           <motion.div className="grid md:grid-cols-3 gap-8 mb-14" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             {[
               { label: "Peak's Investment During Pilot", value: "$0", sub: "Hardware, software, events support, marketing — all on us for 8 weeks." },
-              { label: "Post-Pilot Subscription", value: "$95/court/mo", sub: "Only if you decide to continue. 6 courts = $570/mo. One coaching clinic covers it." },
+              { label: "Post-Pilot Subscription", value: "$95/court/mo", sub: "$0 during the 8-week pilot. Post-pilot: $95/court/mo for continued service. Cancel anytime." },
               { label: "Projected Revenue Lift", value: "$2,000–4,500/mo", sub: "From premium court pricing, coaching, events, and walk-ins combined.", gold: true },
             ].map((m) => (
               <motion.div key={m.label} variants={fadeInUp} className={`glass rounded-2xl p-8 text-center ${m.gold ? "border-accent/30 glow-green" : ""}`}>
