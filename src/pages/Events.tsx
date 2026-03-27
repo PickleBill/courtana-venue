@@ -34,10 +34,8 @@ const Events = () => {
     });
   }, [filter, search, regularEvents]);
 
-  const handleBook = (eventId: string) => {
-    setBookingEvent(eventId);
-    setBookingSuccess(false);
-    setBookingForm({ name: "", email: "", spots: 1 });
+  const handleBook = (eventTitle: string) => {
+    window.location.href = `mailto:bill@courtana.com?subject=Peak%20Event%20—%20${encodeURIComponent(eventTitle)}`;
   };
 
   const handleSubmitBooking = (e: React.FormEvent) => {
