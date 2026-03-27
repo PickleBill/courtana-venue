@@ -34,8 +34,10 @@ const Events = () => {
     });
   }, [filter, search, regularEvents]);
 
-  const handleBook = (eventTitle: string) => {
-    window.location.href = `mailto:bill@courtana.com?subject=Peak%20Event%20—%20${encodeURIComponent(eventTitle)}`;
+  const handleBook = (eventId: string) => {
+    setBookingEvent(eventId);
+    setBookingSuccess(false);
+    setBookingForm({ name: "", email: "", spots: 1 });
   };
 
   const handleSubmitBooking = (e: React.FormEvent) => {
@@ -76,7 +78,7 @@ const Events = () => {
                     <span className="flex items-center gap-1.5"><Users size={16} /> {featured.spots} spots</span>
                     <span className="flex items-center gap-1.5"><DollarSign size={16} /> ${featured.price} general admission</span>
                   </div>
-                  <Button onClick={() => handleBook(featured.title)} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 py-5 text-base font-bold">
+                  <Button onClick={() => handleBook(featured.id)} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 py-5 text-base font-bold">
                     Get Your Spot
                   </Button>
                 </div>
@@ -149,7 +151,7 @@ const Events = () => {
                       {soldOut ? (
                         <Button disabled className="w-full rounded-xl">Sold Out</Button>
                       ) : (
-                        <Button onClick={() => handleBook(event.title)} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">
+                        <Button onClick={() => handleBook(event.id)} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">
                           {event.price === 0 ? "RSVP" : "Book Now"}
                         </Button>
                       )}

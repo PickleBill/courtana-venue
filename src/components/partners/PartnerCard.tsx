@@ -11,6 +11,8 @@ const categoryColors: Record<PartnerCategory, string> = {
   "Technology": "bg-cyan-500/20 text-cyan-400",
   "Agency": "bg-pink-500/20 text-pink-400",
   "Venue": "bg-primary/20 text-primary",
+  "Health & Wellness": "bg-emerald-500/20 text-emerald-400",
+  "Marketing": "bg-orange-500/20 text-orange-400",
 };
 
 const statusColors: Record<string, string> = {
