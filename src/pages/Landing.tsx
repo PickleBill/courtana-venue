@@ -187,9 +187,7 @@ const Landing = () => {
 
         <div className="container mx-auto max-w-6xl relative z-10">
           <motion.div initial="hidden" animate="visible" variants={stagger}>
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-              {/* Left — Title + CTAs */}
-              <div className="text-left">
+            <div className="max-w-3xl mx-auto text-center">
                 <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 mb-8">
                   <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
                   <span className="text-base font-semibold text-primary tracking-wide">Live Partnership Portal</span>
@@ -199,11 +197,11 @@ const Landing = () => {
                   Courtana × <span className="text-gradient-green">Peak Pickleball</span>
                 </motion.h1>
 
-                <motion.p variants={fadeInUp} className="text-lg text-muted-foreground mb-10 leading-relaxed">
+                <motion.p variants={fadeInUp} className="text-lg text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto">
                   Smart courts. Real data. Zero upfront cost. Your 8-week pilot starts April 7.
                 </motion.p>
 
-                <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+                <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 py-6 text-lg font-bold glow-green" asChild>
                     <a href="#plan">
                       See the Plan
@@ -214,23 +212,6 @@ const Landing = () => {
                     <Link to="/events">Browse Events</Link>
                   </Button>
                 </motion.div>
-              </div>
-
-              {/* Right — Peak Facility Image */}
-              <motion.div variants={fadeInUp}>
-                <a href="https://peakpickleball.club" target="_blank" rel="noopener noreferrer" className="block rounded-2xl overflow-hidden border border-primary/20 shadow-2xl hover:border-primary/40 transition-colors">
-                  <img
-                    src="https://peakpickleball.club/wp-content/uploads/2026/03/IMG_2132-scaled.jpeg"
-                    alt="Peak Pickleball — 19 Courts, Greensboro NC"
-                    className="w-full h-72 lg:h-80 object-cover"
-                    loading="lazy"
-                  />
-                  <div className="p-4 flex items-center justify-between bg-card/80">
-                    <span className="text-sm font-bold text-foreground">Peak Pickleball — 19 Courts, Greensboro NC</span>
-                    <ExternalLink size={14} className="text-muted-foreground" />
-                  </div>
-                </a>
-              </motion.div>
             </div>
 
             {/* Hero Highlight Video — Full Width Below */}
