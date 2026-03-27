@@ -316,6 +316,65 @@ const Landing = () => {
         </div>
       </section>
 
+      {/* See It In Action */}
+      <section className="py-24 px-4 bg-card/50">
+        <div className="container mx-auto max-w-5xl">
+          <motion.h2 className="text-foreground text-center mb-4 font-extrabold" style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.15 }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            See It In Action
+          </motion.h2>
+          <motion.p className="text-lg text-muted-foreground text-center mb-14 max-w-xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            Real footage from real courts. This is what Courtana looks like on game day.
+          </motion.p>
+          <motion.div className="grid md:grid-cols-3 gap-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            {/* Panel 1 - Court Display */}
+            <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
+              <div className="relative">
+                <video src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4" autoPlay muted loop playsInline className="w-full h-48 object-cover" />
+              </div>
+              <div className="p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <Monitor size={16} className="text-primary" />
+                  <span className="text-sm font-bold text-foreground">Court Display — Live View</span>
+                </div>
+                <p className="text-sm text-muted-foreground">Stats, highlights, and leaderboards in real time. Click to expand.</p>
+              </div>
+            </motion.div>
+
+            {/* Panel 2 - AI Analysis */}
+            <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
+              <div className="relative">
+                <video src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4" autoPlay muted loop playsInline className="w-full h-48 object-cover" />
+              </div>
+              <div className="p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <Brain size={16} className="text-primary" />
+                  <span className="text-sm font-bold text-foreground">AI Analysis in Action</span>
+                </div>
+                <p className="text-sm text-muted-foreground">Paddle identification, shot tracking, and real-time analysis. Click to expand.</p>
+              </div>
+            </motion.div>
+
+            {/* Panel 3 - Peak AI Analysis */}
+            <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
+              <div className="relative">
+                <video src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4" autoPlay muted loop playsInline className="w-full h-48 object-cover" />
+                <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  <span className="text-[10px] font-bold text-primary">LIVE</span>
+                </div>
+              </div>
+              <div className="p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap size={16} className="text-primary" />
+                  <span className="text-sm font-bold text-foreground">Peak AI Analysis — Live Match Review</span>
+                </div>
+                <p className="text-sm text-muted-foreground">Advanced match analysis with shot-by-shot breakdown. Click to expand.</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Value Props */}
       <section className="py-24 px-4 bg-card/50">
         <div className="container mx-auto max-w-6xl">

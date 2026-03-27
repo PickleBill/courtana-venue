@@ -1,7 +1,9 @@
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Rocket, Link2, TrendingUp, ExternalLink } from "lucide-react";
+import { ArrowRight, Rocket, Link2, TrendingUp, ExternalLink, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import EcosystemFlywheel from "@/components/partners/EcosystemFlywheel";
@@ -36,6 +38,14 @@ const howItWorks = [
 ];
 
 const Partners = () => {
+  const [view, setView] = useState("all");
+
+  const filteredPartners = useMemo(() => {
+    if (view === "venue") return partners.filter((p) => p.category === "Venue");
+    if (view === "ecosystem") return partners.filter((p) => p.category !== "Venue");
+    return partners;
+  }, [view]);
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -69,6 +79,35 @@ const Partners = () => {
           >
             <EcosystemFlywheel />
           </motion.div>
+
+          {/* Live Evidence Strip */}
+          <motion.div
+            className="max-w-2xl mx-auto rounded-2xl overflow-hidden border border-primary/20 shadow-2xl mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+          >
+            <div className="relative">
+              <video
+                src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-48 object-cover"
+              />
+              <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                <Play size={12} className="text-primary" />
+                <span className="text-xs font-semibold text-primary">Courtana Live — Peak Pickleball · April 7</span>
+              </div>
+            </div>
+            <div className="p-4 bg-card/80 text-center">
+              <p className="text-sm text-muted-foreground mb-2">The ecosystem is real. The courts are live. The data is running.</p>
+              <a href="https://peakpickleball.club" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors font-medium">
+                peakpickleball.club <ExternalLink size={12} />
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -82,15 +121,25 @@ const Partners = () => {
           >
             Our Partners
           </motion.h2>
-          <motion.p className="text-lg text-muted-foreground text-center mb-14 max-w-xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+          <motion.p className="text-lg text-muted-foreground text-center mb-8 max-w-xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             Live sites, connected platforms, and a growing network of pickleball innovators.
           </motion.p>
 
+          <motion.div className="flex justify-center mb-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <Tabs value={view} onValueChange={setView}>
+              <TabsList className="bg-secondary/50">
+                <TabsTrigger value="all">All</TabsTrigger>
+                <TabsTrigger value="venue">Venue Partners</TabsTrigger>
+                <TabsTrigger value="ecosystem">Ecosystem</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </motion.div>
+
           <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {partners.map((p) => (
+            {filteredPartners.map((p) => (
               <PartnerCard key={p.name} partner={p} />
             ))}
-            {openSlots.map((s) => (
+            {view !== "venue" && openSlots.map((s) => (
               <OpenSlotCard key={s.name} name={s.name} category={s.category} />
             ))}
           </motion.div>
@@ -108,7 +157,7 @@ const Partners = () => {
             How the Flywheel Works
           </motion.h2>
           <motion.div className="grid md:grid-cols-3 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {howItWorks.map((item, i) => (
+            {howItWorks.map((item) => (
               <motion.div key={item.title} variants={fadeInUp} className="glass rounded-2xl p-8 text-center glow-green-hover transition-all duration-300">
                 <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <item.icon className="text-primary" size={28} />
