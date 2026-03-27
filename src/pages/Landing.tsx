@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import {
   Camera, Megaphone, Brain, Gamepad2, Users, Radio,
   ArrowRight, Mail, BarChart3, ExternalLink, Zap, MessageSquareQuote,
-  ChevronDown, Handshake
+  ChevronDown, Handshake, CheckCircle, Trophy, Play
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -29,7 +29,7 @@ const stats = [
 const quotes = [
   "The biggest problem with tech tools is they lose novelty after a month. If you can keep them coming back — badges, highlights, leaderboards — that changes everything.",
   "I need to justify every dollar to an owner who invested $1.5 million in this facility.",
-  "The biggest problem with tech tools is they lose novelty after a month. Gamification and badges — that's what keeps people coming back.",
+  "If the coaches love it, the players will follow. Give me something my coaches can't stop talking about.",
   "If you can show me the numbers after the pilot, I'll expand to all 16 courts.",
 ];
 
@@ -133,6 +133,16 @@ const revenueStreams = [
   { name: "Open play optimization (reduced no-shows, better fill)", conservative: "$100", realistic: "$250", upside: "$400" },
 ];
 
+const leaderboardData = [
+  { rank: 1, name: "PickleBill", xp: 283950, level: 17, tier: "Gold III", tierColor: "bg-amber-500/20 text-amber-400" },
+  { rank: 2, name: "Chintan", xp: 70500, level: 9, tier: "Silver II", tierColor: "bg-slate-400/20 text-slate-300" },
+  { rank: 3, name: "Irenefuntila", xp: 68800, level: 9, tier: "Silver II", tierColor: "bg-slate-400/20 text-slate-300" },
+  { rank: 4, name: "Ironvarr", xp: 52750, level: 8, tier: "Silver II", tierColor: "bg-slate-400/20 text-slate-300" },
+  { rank: 5, name: "Coach_Block", xp: 49600, level: 8, tier: "Silver II", tierColor: "bg-slate-400/20 text-slate-300" },
+];
+
+const rankEmoji: Record<number, string> = { 1: "🥇", 2: "🥈", 3: "🥈" };
+
 const Landing = () => {
   const [expandedWeek, setExpandedWeek] = useState<number | null>(null);
 
@@ -173,6 +183,22 @@ const Landing = () => {
                 <Link to="/events">Browse Events</Link>
               </Button>
             </motion.div>
+
+            {/* Hero Highlight Video */}
+            <motion.div variants={fadeInUp} className="mt-10 max-w-2xl mx-auto rounded-2xl overflow-hidden border border-primary/20 shadow-2xl relative">
+              <div className="absolute top-3 left-3 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-xs font-semibold text-primary">Live Courtana Highlight</span>
+              </div>
+              <video
+                src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full max-h-64 object-cover"
+              />
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -187,6 +213,83 @@ const Landing = () => {
                 <div className="text-base text-muted-foreground font-medium">{s.label}</div>
               </motion.div>
             ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Already Running — Real Players, Real Data */}
+      <section className="py-24 px-4 bg-card/50">
+        <div className="container mx-auto max-w-5xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeInUp} className="text-center mb-14">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-sm font-semibold text-primary">Live Platform Data</span>
+              </div>
+              <h2 className="text-foreground font-extrabold mb-4" style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.15 }}>
+                Already Running. Real Players. Real Data.
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                The platform Chris will be joining is live today at partner facilities. These are real rankings from real players — right now.
+              </p>
+            </motion.div>
+
+            {/* Leaderboard */}
+            <motion.div variants={fadeInUp} className="glass rounded-2xl border border-primary/20 overflow-hidden max-w-xl mx-auto mb-10">
+              <div className="p-5 pb-3 flex items-center gap-3 border-b border-border">
+                <Trophy className="text-primary" size={20} />
+                <h3 className="font-bold text-foreground">Live Leaderboard</h3>
+                <span className="ml-auto text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold border border-primary/20">LIVE</span>
+              </div>
+              <div className="divide-y divide-border/50">
+                {leaderboardData.map((p) => (
+                  <div key={p.rank} className="flex items-center gap-4 px-5 py-3.5 hover:bg-secondary/30 transition-colors">
+                    <span className="text-sm font-bold text-muted-foreground w-5 text-center">{rankEmoji[p.rank] || p.rank}</span>
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/60 to-primary/20 flex items-center justify-center text-xs font-bold text-primary-foreground flex-shrink-0">
+                      {p.name[0]}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-sm font-bold text-foreground">{p.name}</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground font-mono">{p.xp.toLocaleString()} XP</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-muted-foreground font-semibold">Lv {p.level}</span>
+                    <span className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${p.tierColor}`}>{p.tier}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Highlight Video */}
+            <motion.div variants={fadeInUp} className="max-w-xl mx-auto mb-6">
+              <p className="text-xs text-muted-foreground uppercase tracking-wider font-bold mb-3 flex items-center gap-2">
+                <Play size={12} className="text-primary" />
+                Real Courtana Highlight — Auto-Generated from Live Match
+              </p>
+              <div className="rounded-xl overflow-hidden border border-primary/20 shadow-lg">
+                <video
+                  src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full max-h-72 object-cover"
+                  poster="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/01915c59-9bb7-4683-bd53-e28bddcae12e.jpeg"
+                />
+              </div>
+            </motion.div>
+
+            {/* Stat strip */}
+            <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground mb-6 max-w-xl mx-auto">
+              <span className="font-semibold text-foreground">4,097</span> Highlights Captured
+              <span className="text-border">·</span>
+              <span className="font-semibold text-foreground">25</span> Ranked Players
+              <span className="text-border">·</span>
+              <span className="font-semibold text-foreground">82+</span> Badges Earned
+            </motion.div>
+
+            <motion.p variants={fadeInUp} className="text-center text-muted-foreground italic text-base max-w-lg mx-auto">
+              Peak players will join this leaderboard on April 7. Where will your coaches rank?
+            </motion.p>
           </motion.div>
         </div>
       </section>
@@ -439,7 +542,7 @@ const Landing = () => {
           </motion.div>
 
           <motion.p className="text-center text-muted-foreground italic text-base max-w-2xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-            "This is a development partnership, not a software purchase. We invest together. We build together. We win together."
+            "A development partnership, not a software purchase. We invest together. We win together."
           </motion.p>
         </div>
       </section>

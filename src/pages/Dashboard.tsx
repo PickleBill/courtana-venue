@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
-import { Activity, DollarSign, Users, Camera, ExternalLink, Target } from "lucide-react";
+import { Activity, DollarSign, Users, Camera, ExternalLink, Target, CheckCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -45,6 +45,13 @@ const statusColors: Record<string, string> = {
   "Sold Out": "bg-red-500/20 text-red-400",
 };
 
+const kpis = [
+  { label: "Hardware Status", value: "Ready", icon: Camera, sub: "6 courts, 10 cameras — pre-configured", accent: false },
+  { label: "Pilot Start Date", value: "Apr 7", icon: Activity, sub: "Cameras live on Week 1 courts", accent: false },
+  { label: "Spring Smash", value: "May 1", icon: Users, sub: "300-player tournament — Courtana live", accent: false },
+  { label: "Revenue Projection", value: "$2,950", icon: DollarSign, sub: "Monthly realistic after 8 weeks", accent: true },
+];
+
 const Dashboard = () => {
   return (
     <div className="min-h-screen">
@@ -72,18 +79,16 @@ const Dashboard = () => {
 
           {/* KPIs */}
           <motion.div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8" initial="hidden" animate="visible" variants={stagger}>
-            {[
-              { label: "Sessions Recorded", value: "0", icon: Camera, sub: "Pilot starts April 7" },
-              { label: "Highlights Generated", value: "0", icon: Activity, sub: "Pilot starts April 7" },
-              { label: "Event Revenue", value: "$0", icon: DollarSign, sub: "Pilot starts April 7", accent: true },
-              { label: "Player Accounts", value: "0", icon: Users, sub: "Pilot starts April 7" },
-            ].map((k) => (
+            {kpis.map((k) => (
               <motion.div key={k.label} variants={fadeInUp} className={`glass rounded-2xl p-5 ${k.accent ? "border-accent/30 glow-green" : ""}`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-muted-foreground uppercase tracking-wider font-bold">{k.label}</span>
                   <k.icon size={16} className={k.accent ? "text-accent" : "text-primary"} />
                 </div>
-                <div className={`text-3xl font-extrabold ${k.accent ? "text-gradient-gold" : "text-foreground"}`}>{k.value}</div>
+                <div className="flex items-center gap-2">
+                  <div className={`text-3xl font-extrabold ${k.accent ? "text-gradient-gold" : "text-foreground"}`}>{k.value}</div>
+                  <CheckCircle size={18} className="text-primary flex-shrink-0" />
+                </div>
                 <div className="text-xs text-muted-foreground mt-1">{k.sub}</div>
               </motion.div>
             ))}
