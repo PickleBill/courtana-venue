@@ -185,35 +185,56 @@ const Landing = () => {
           <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full opacity-10" style={{ background: "radial-gradient(circle, hsl(48 100% 50% / 0.3), transparent 70%)" }} />
         </div>
 
-        <div className="container mx-auto text-center max-w-5xl relative z-10">
+        <div className="container mx-auto max-w-6xl relative z-10">
           <motion.div initial="hidden" animate="visible" variants={stagger}>
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 mb-10">
-              <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
-              <span className="text-base font-semibold text-primary tracking-wide">Live Partnership Portal</span>
-            </motion.div>
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              {/* Left — Title + CTAs */}
+              <div className="text-left">
+                <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 mb-8">
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
+                  <span className="text-base font-semibold text-primary tracking-wide">Live Partnership Portal</span>
+                </motion.div>
 
-            <motion.h1 variants={fadeInUp} className="text-foreground mb-6" style={{ fontSize: "clamp(3rem, 7vw, 5rem)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.02em" }}>
-              Courtana × <span className="text-gradient-green">Peak Pickleball</span>
-            </motion.h1>
+                <motion.h1 variants={fadeInUp} className="text-foreground mb-6" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.02em" }}>
+                  Courtana × <span className="text-gradient-green">Peak Pickleball</span>
+                </motion.h1>
 
-            <motion.p variants={fadeInUp} className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-              Smart courts. Real data. Zero upfront cost. Your 8-week pilot starts April 7.
-            </motion.p>
+                <motion.p variants={fadeInUp} className="text-lg text-muted-foreground mb-10 leading-relaxed">
+                  Smart courts. Real data. Zero upfront cost. Your 8-week pilot starts April 7.
+                </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-5 justify-center">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-10 py-6 text-lg font-bold glow-green" asChild>
-                <a href="#plan">
-                  See the Plan
-                  <ArrowRight size={20} className="ml-2" />
+                <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 py-6 text-lg font-bold glow-green" asChild>
+                    <a href="#plan">
+                      See the Plan
+                      <ArrowRight size={20} className="ml-2" />
+                    </a>
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary rounded-xl px-8 py-6 text-lg font-bold" asChild>
+                    <Link to="/events">Browse Events</Link>
+                  </Button>
+                </motion.div>
+              </div>
+
+              {/* Right — Peak Facility Image */}
+              <motion.div variants={fadeInUp}>
+                <a href="https://peakpickleball.club" target="_blank" rel="noopener noreferrer" className="block rounded-2xl overflow-hidden border border-primary/20 shadow-2xl hover:border-primary/40 transition-colors">
+                  <img
+                    src="https://peakpickleball.club/wp-content/uploads/2026/03/IMG_2132-scaled.jpeg"
+                    alt="Peak Pickleball — 19 Courts, Greensboro NC"
+                    className="w-full h-72 lg:h-80 object-cover"
+                    loading="lazy"
+                  />
+                  <div className="p-4 flex items-center justify-between bg-card/80">
+                    <span className="text-sm font-bold text-foreground">Peak Pickleball — 19 Courts, Greensboro NC</span>
+                    <ExternalLink size={14} className="text-muted-foreground" />
+                  </div>
                 </a>
-              </Button>
-              <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary rounded-xl px-10 py-6 text-lg font-bold" asChild>
-                <Link to="/events">Browse Events</Link>
-              </Button>
-            </motion.div>
+              </motion.div>
+            </div>
 
-            {/* Hero Highlight Video — Wide + Clickable */}
-            <motion.div variants={fadeInUp} className="mt-10 max-w-4xl mx-auto rounded-2xl overflow-hidden border border-primary/20 shadow-2xl relative">
+            {/* Hero Highlight Video — Full Width Below */}
+            <motion.div variants={fadeInUp} className="mt-10 rounded-2xl overflow-hidden border border-primary/20 shadow-2xl relative">
               <a href="https://courtana.com" target="_blank" rel="noopener noreferrer" className="block">
                 <div className="absolute top-3 left-3 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -227,22 +248,6 @@ const Landing = () => {
                   playsInline
                   className="w-full"
                 />
-              </a>
-            </motion.div>
-
-            {/* Peak Facility Image */}
-            <motion.div variants={fadeInUp} className="mt-6 max-w-4xl mx-auto">
-              <a href="https://peakpickleball.club" target="_blank" rel="noopener noreferrer" className="block glass rounded-2xl overflow-hidden border border-border hover:border-primary/30 transition-colors">
-                <img
-                  src="https://peakpickleball.club/wp-content/uploads/2026/03/IMG_2132-scaled.jpeg"
-                  alt="Peak Pickleball — 19 Courts, Greensboro NC"
-                  className="w-full h-48 md:h-64 object-cover"
-                  loading="lazy"
-                />
-                <div className="p-4 flex items-center justify-between">
-                  <span className="text-sm font-bold text-foreground">Peak Pickleball — 19 Courts, Greensboro NC</span>
-                  <ExternalLink size={14} className="text-muted-foreground" />
-                </div>
               </a>
             </motion.div>
           </motion.div>
@@ -314,22 +319,31 @@ const Landing = () => {
               </div>
             </motion.div>
 
-            {/* Panel 2 - AI Analysis — CDN image */}
+            {/* Panel 2 - Peak Highlight Video (Center) */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
               <div className="relative">
-                <img
-                  src="https://cdn.courtana.com/assets/aianalysis2.png"
-                  alt="AI Analysis in Action"
-                  className="w-full h-48 object-cover"
-                  loading="lazy"
-                />
+                <a href="https://courtana.com/highlight/bcsPaTmCM2dw" target="_blank" rel="noopener noreferrer" className="block">
+                  <video
+                    src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/6bc572b0-a198-41ad-89d2-7d2b985ce410.mp4"
+                    poster="https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/7d7e5202-8a02-4188-a7a4-c9c8ef596fb1.jpeg"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                    <span className="text-[10px] font-bold text-primary">LIVE</span>
+                  </div>
+                </a>
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <Brain size={16} className="text-primary" />
-                  <span className="text-sm font-bold text-foreground">AI Analysis in Action</span>
+                  <span className="text-sm font-bold text-foreground">Peak AI Analysis — Live Match</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Paddle identification, shot tracking, and real-time analysis.</p>
+                <p className="text-sm text-muted-foreground">Real match footage with AI shot tracking and analysis.</p>
               </div>
             </motion.div>
 
@@ -377,29 +391,37 @@ const Landing = () => {
               <motion.div
                 key={v.title}
                 variants={fadeInUp}
-                className={`glass rounded-2xl overflow-hidden transition-all duration-300 ${activeCard === i ? "ring-1 ring-primary/40 shadow-lg shadow-primary/10" : "glow-green-hover hover:-translate-y-1"}`}
+                className={`rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer ${activeCard === i ? "bg-primary/10 ring-1 ring-primary/30 shadow-lg shadow-primary/10" : "glass glow-green-hover hover:-translate-y-1"}`}
                 onMouseEnter={() => setActiveCard(i)}
                 onMouseLeave={() => setActiveCard(null)}
                 onClick={() => setActiveCard(activeCard === i ? null : i)}
               >
-                <div className="p-8">
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                    <v.icon className="text-primary" size={28} />
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
-                  <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
-                </div>
-
-                <AnimatePresence>
-                  {activeCard === i && (
+                {/* Default state: icon + title + desc */}
+                <AnimatePresence mode="wait">
+                  {activeCard !== i ? (
                     <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden border-t border-border"
+                      key="default"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="p-8"
                     >
-                      {/* Hover content */}
+                      <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                        <v.icon className="text-primary" size={28} />
+                      </div>
+                      <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
+                      <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="active"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {/* Active state: visual + CTA */}
                       {v.hoverType === "leaderboard" && (
                         <div className="p-4">
                           <LeaderboardMockup />
@@ -409,7 +431,7 @@ const Landing = () => {
                         <div className="relative bg-black">
                           <iframe
                             src={v.hoverSrc}
-                            className="w-full h-48 border-0"
+                            className="w-full h-52 border-0"
                             title={v.title}
                             allow="autoplay"
                             loading="lazy"
@@ -422,21 +444,18 @@ const Landing = () => {
                       )}
                       {v.hoverType === "image" && v.hoverSrc && (
                         <div className="relative">
-                          <img src={v.hoverSrc} alt={v.title} className="w-full h-48 object-cover" loading="lazy" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                          <img src={v.hoverSrc} alt={v.title} className="w-full h-52 object-cover" loading="lazy" />
                         </div>
                       )}
                       {v.hoverType === "link" && (
-                        <div className="p-6 bg-primary/5 flex items-center justify-center">
-                          <div className="text-center">
-                            <v.icon className="text-primary mx-auto mb-3" size={32} />
-                            <p className="text-sm text-muted-foreground mb-3">Click below to explore</p>
-                          </div>
+                        <div className="p-8 flex flex-col items-center justify-center min-h-[200px]">
+                          <v.icon className="text-primary mb-3" size={40} />
+                          <h3 className="text-lg font-bold text-foreground mb-2">{v.title}</h3>
                         </div>
                       )}
 
-                      {/* CTA button */}
-                      <div className="p-4 bg-secondary/30">
+                      {/* CTA */}
+                      <div className="p-4">
                         {v.hoverCta && "to" in v.hoverCta ? (
                           <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
                             <Link to={v.hoverCta.to!}>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Camera, Play, Brain, Trophy, Send, Loader2, CheckCircle, Mail, ExternalLink } from "lucide-react";
+import { Camera, Play, Brain, Trophy, Send, Loader2, CheckCircle, Mail, ExternalLink, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -89,17 +89,14 @@ const About = () => {
               className="rounded-2xl overflow-hidden border border-primary/20 shadow-2xl relative"
             >
               <div className="absolute top-3 left-3 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-xs font-semibold text-primary">Courtana Smart Court — Live AI Highlight</span>
+                <Monitor size={12} className="text-primary" />
+                <span className="text-xs font-semibold text-primary">Live Court Display</span>
               </div>
-              <video
-                src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
+              <img
+                src="https://cdn.courtana.com/assets/livefeedcourt+(Medium).png"
+                alt="Courtana Live Court Display"
                 className="w-full h-80 object-cover"
-                poster="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/01915c59-9bb7-4683-bd53-e28bddcae12e.jpeg"
+                loading="lazy"
               />
             </motion.div>
           </div>
