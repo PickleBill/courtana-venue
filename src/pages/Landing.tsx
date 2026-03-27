@@ -319,22 +319,31 @@ const Landing = () => {
               </div>
             </motion.div>
 
-            {/* Panel 2 - AI Analysis — CDN image */}
+            {/* Panel 2 - Peak Highlight Video (Center) */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
               <div className="relative">
-                <img
-                  src="https://cdn.courtana.com/assets/aianalysis2.png"
-                  alt="AI Analysis in Action"
-                  className="w-full h-48 object-cover"
-                  loading="lazy"
-                />
+                <a href="https://courtana.com/highlight/bcsPaTmCM2dw" target="_blank" rel="noopener noreferrer" className="block">
+                  <video
+                    src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/6bc572b0-a198-41ad-89d2-7d2b985ce410.mp4"
+                    poster="https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/7d7e5202-8a02-4188-a7a4-c9c8ef596fb1.jpeg"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                    <span className="text-[10px] font-bold text-primary">LIVE</span>
+                  </div>
+                </a>
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <Brain size={16} className="text-primary" />
-                  <span className="text-sm font-bold text-foreground">AI Analysis in Action</span>
+                  <span className="text-sm font-bold text-foreground">Peak AI Analysis — Live Match</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Paddle identification, shot tracking, and real-time analysis.</p>
+                <p className="text-sm text-muted-foreground">Real match footage with AI shot tracking and analysis.</p>
               </div>
             </motion.div>
 
