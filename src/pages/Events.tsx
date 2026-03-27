@@ -151,7 +151,7 @@ const Events = () => {
                       {soldOut ? (
                         <Button disabled className="w-full rounded-xl">Sold Out</Button>
                       ) : (
-                        <Button onClick={() => handleBook(event.title)} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">
+                        <Button onClick={() => handleBook(event.id)} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">
                           {event.price === 0 ? "RSVP" : "Book Now"}
                         </Button>
                       )}
