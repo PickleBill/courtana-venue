@@ -83,7 +83,7 @@ const Discovery = () => {
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
           {/* Left Panel — Discovery Inputs */}
           <div className="xl:col-span-4 2xl:col-span-3">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2 space-y-1 scrollbar-thin">
+            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2 space-y-1" style={{ scrollbarWidth: 'thin', scrollbarColor: 'hsl(var(--border)) transparent' }}>
               <DiscoveryInputs data={data} update={update} />
             </div>
           </div>

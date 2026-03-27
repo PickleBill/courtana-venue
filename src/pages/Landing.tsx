@@ -34,15 +34,6 @@ const quotes = [
   "If you can show me the numbers after the pilot, I'll expand to all 16 courts.",
 ];
 
-const valueProps = [
-  { icon: Camera, title: "Cameras on 6 Courts", desc: "10 cameras across 6 courts. Non-invasive install. Instant replay on court-side displays. Players see their highlights in real time." },
-  { icon: Megaphone, title: "We Run Your Events", desc: "May 1 tournament? We put cameras on it. Grand opening? We live-broadcast it. Coaching clinics? We handle booking and payment." },
-  { icon: Brain, title: "AI Coaching at $20–25", desc: "Your coaches' lessons, enhanced with AI video review. A new revenue tier between \"free advice\" and \"$80/hr lessons.\" 70% to coach, 20% to Peak, 10% to Courtana." },
-  { icon: Gamepad2, title: "Gamification That Sticks", desc: "Badges, XP, leaderboards, trick shot recognition. The dopamine loop that makes players say \"one more game.\" This is how we beat the 1–2 month novelty dropoff." },
-  { icon: Users, title: "Open Play, Solved", desc: "Real-time court displays showing who's playing, how many spots are open, skill levels on court. No more \"who's in?\" text chains. Players scan in and Courtana matches them." },
-  { icon: Radio, title: "Live Broadcast to the Highway", desc: "Peak is 30 seconds from a Sheraton and visible from the highway. Live streams from championship courts turn cameras into a marketing billboard." },
-];
-
 const weeks = [
   {
     num: 1, dates: "April 7–13", title: "Install + Coach Preview", focus: "LAUNCH", color: "bg-purple-500/20 text-purple-400",
@@ -138,6 +129,141 @@ const CDN_VIDEO = "https://cdn.courtana.com/files/production/u/01915c59-9bb7-468
 
 const Landing = () => {
   const [expandedWeek, setExpandedWeek] = useState<number | null>(null);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+
+  const valueProps = [
+    {
+      icon: Camera,
+      title: "Cameras on 6 Courts",
+      desc: "10 cameras across 6 courts. Non-invasive install. Instant replay on court-side displays.",
+      hoverBg: "bg-primary/10",
+      hoverContent: (
+        <div className="text-center">
+          <div className="glass rounded-xl p-4 mb-3 border border-primary/20">
+            <div className="text-xs text-primary font-semibold mb-1 flex items-center justify-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" /> LIVE FEED ACTIVE
+            </div>
+            <div className="text-2xl font-bold text-foreground">6 Courts</div>
+            <div className="text-xs text-muted-foreground">10 cameras · auto-recording</div>
+          </div>
+          <p className="text-sm text-muted-foreground">Every point captured. Every highlight auto-clipped. Zero setup for players.</p>
+        </div>
+      ),
+    },
+    {
+      icon: Megaphone,
+      title: "We Run Your Events",
+      desc: "May 1 tournament, grand opening, coaching clinics — we handle cameras, booking, and payment.",
+      hoverBg: "bg-amber-500/10",
+      hoverContent: (
+        <div className="text-center">
+          <div className="space-y-2 mb-3">
+            {["Spring Smash — May 1 · 300 players", "Grand Opening — May 9 · Chris Kelly", "Coaching Clinics — $25-40/player"].map(e => (
+              <div key={e} className="text-xs px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-medium">{e}</div>
+            ))}
+          </div>
+          <Link to="/events" className="inline-flex items-center gap-1 text-sm text-primary hover:underline font-semibold">
+            View All Events <ArrowRight size={14} />
+          </Link>
+        </div>
+      ),
+    },
+    {
+      icon: Brain,
+      title: "AI Coaching at $20–25",
+      desc: "Lessons enhanced with AI video review. A new revenue tier between free advice and $80/hr lessons.",
+      hoverBg: "bg-cyan-500/10",
+      hoverContent: (
+        <div className="text-center">
+          <div className="glass rounded-xl overflow-hidden mb-3 border border-cyan-500/20">
+            <div className="bg-black aspect-video relative">
+              <video
+                src={CDN_VIDEO}
+                className="w-full h-full object-cover opacity-80"
+                muted playsInline loop autoPlay
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-xs text-cyan-300 font-semibold">AI Analysis Active</div>
+              </div>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground">70% to coach · 20% to Peak · 10% to Courtana</p>
+        </div>
+      ),
+    },
+    {
+      icon: Gamepad2,
+      title: "Gamification That Sticks",
+      desc: "Badges, XP, leaderboards, trick shot recognition. The dopamine loop that beats the 1-month novelty dropoff.",
+      hoverBg: "bg-primary/10",
+      hoverContent: (
+        <div>
+          <div className="text-xs text-muted-foreground text-center mb-2 font-semibold uppercase tracking-wider">Live Leaderboard</div>
+          <div className="space-y-1.5 mb-3">
+            {[
+              { rank: 1, name: "PickleBill", xp: "283,950", tier: "🥇 Gold III" },
+              { rank: 2, name: "Chintan", xp: "70,500", tier: "🥈 Silver II" },
+              { rank: 3, name: "Irenefuntila", xp: "68,800", tier: "🥈 Silver II" },
+              { rank: 4, name: "Ironvarr", xp: "52,750", tier: "🥈 Silver II" },
+              { rank: 5, name: "Coach_Block", xp: "49,600", tier: "🥈 Silver II" },
+            ].map(p => (
+              <div key={p.rank} className="flex items-center justify-between text-xs px-2 py-1 rounded-lg bg-secondary/50">
+                <span className="text-muted-foreground font-bold w-4">{p.rank}</span>
+                <span className="text-foreground font-semibold flex-1 mx-2">{p.name}</span>
+                <span className="text-primary font-bold">{p.xp}</span>
+              </div>
+            ))}
+          </div>
+          <a href="https://courtana.com/leaderboard/" target="_blank" rel="noopener noreferrer"
+            className="flex items-center justify-center gap-1 text-xs text-primary hover:underline font-semibold">
+            Global Leaderboard <ExternalLink size={11} />
+          </a>
+        </div>
+      ),
+    },
+    {
+      icon: Users,
+      title: "Open Play, Solved",
+      desc: "Real-time court displays showing who's playing, skill levels, open spots. No more 'who's in?' text chains.",
+      hoverBg: "bg-purple-500/10",
+      hoverContent: (
+        <div className="text-center">
+          <div className="glass rounded-xl p-4 mb-3 border border-purple-500/20">
+            <div className="text-xs text-purple-400 font-semibold mb-2">Matchmaking Active</div>
+            <div className="space-y-1 text-xs text-left">
+              {["Court 1 · 3.5+ · 2 spots open", "Court 2 · 4.0+ · Full", "Court 3 · All levels · 1 spot", "Court 4 · Beginner · 3 spots"].map(c => (
+                <div key={c} className="flex items-center gap-2 text-muted-foreground">
+                  <span className={`w-1.5 h-1.5 rounded-full ${c.includes("Full") ? "bg-red-400" : "bg-primary"}`} />
+                  {c}
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground">Real-time · auto-updates · on-court displays</p>
+        </div>
+      ),
+    },
+    {
+      icon: Radio,
+      title: "Live Broadcast to the Highway",
+      desc: "Peak is 30 seconds from a Sheraton and visible from the highway. Live streams from championship courts.",
+      hoverBg: "bg-red-500/10",
+      hoverContent: (
+        <div className="text-center">
+          <div className="glass rounded-xl p-3 mb-3 border border-red-500/20">
+            <div className="text-xs text-red-400 font-semibold flex items-center justify-center gap-1 mb-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" /> LIVE BROADCAST
+            </div>
+            <div className="text-xs text-muted-foreground space-y-1">
+              <div>Championship Court 1 · streaming</div>
+              <div>Championship Court 2 · standby</div>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground">Sheraton guests, highway traffic, social media — all watching Peak.</p>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="min-h-screen">
@@ -260,41 +386,47 @@ const Landing = () => {
             Real footage from real courts. This is what Courtana looks like on game day.
           </motion.p>
           <motion.div className="grid md:grid-cols-3 gap-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {/* Panel 1 - Court Display — CDN image */}
+            {/* Panel 1 - Court Display — Live iframe */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
-              <div className="relative">
-                <img
-                  src="https://cdn.courtana.com/assets/livefeedcourt+(Medium).png"
-                  alt="Court Display — Live Feed"
-                  className="w-full h-48 object-cover"
-                  loading="lazy"
+              <div className="relative bg-black aspect-video overflow-hidden rounded-t-xl">
+                <iframe
+                  src="https://courtana.com/display/ENgYPNHxUt7H"
+                  className="w-full h-full border-0 scale-[0.85] origin-top-left"
+                  style={{ width: "118%", height: "118%" }}
+                  title="Courtana Live Court Display"
+                  allow="autoplay"
                 />
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <Monitor size={16} className="text-primary" />
                   <span className="text-sm font-bold text-foreground">Court Display — Live View</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse ml-auto" />
                 </div>
                 <p className="text-sm text-muted-foreground">Stats, highlights, and leaderboards in real time.</p>
               </div>
             </motion.div>
 
-            {/* Panel 2 - AI Analysis — CDN image */}
+            {/* Panel 2 - Peak AI Analysis — demo video at 1.25x */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
-              <div className="relative">
-                <img
-                  src="https://cdn.courtana.com/assets/aianalysis2.png"
-                  alt="AI Analysis in Action"
-                  className="w-full h-48 object-cover"
-                  loading="lazy"
+              <div className="relative bg-black aspect-video">
+                <video
+                  ref={(el) => { if (el) el.playbackRate = 1.25; }}
+                  src={CDN_VIDEO}
+                  className="w-full h-full object-cover"
+                  muted playsInline loop autoPlay preload="metadata"
                 />
+                <div className="absolute top-2 left-2 flex items-center gap-1.5 px-2 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  <span className="text-[10px] font-semibold text-primary">PEAK AI ANALYSIS</span>
+                </div>
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <Brain size={16} className="text-primary" />
-                  <span className="text-sm font-bold text-foreground">AI Analysis in Action</span>
+                  <span className="text-sm font-bold text-foreground">Peak AI Analysis — Live Match Review</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Paddle identification, shot tracking, and real-time analysis.</p>
+                <p className="text-sm text-muted-foreground">Advanced match analysis with shot-by-shot breakdown.</p>
               </div>
             </motion.div>
 
@@ -310,14 +442,14 @@ const Landing = () => {
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <Zap size={16} className="text-primary" />
-                  <span className="text-sm font-bold text-foreground">Peak AI Analysis — Live Match Review</span>
+                  <span className="text-sm font-bold text-foreground">Highlight Reel — Auto-Generated</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Advanced match analysis with shot-by-shot breakdown.</p>
+                <p className="text-sm text-muted-foreground">Every match clipped, every highlight shared automatically.</p>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Stat strip — moved here from removed leaderboard section */}
+          {/* Stat strip */}
           <motion.div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground mt-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             <span className="font-semibold text-foreground">4,097</span> Highlights Captured
             <span className="text-border">·</span>
@@ -328,7 +460,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Value Props */}
+      {/* Value Props — Interactive Hover Cards */}
       <section className="py-24 px-4 bg-card/50">
         <div className="container mx-auto max-w-6xl">
           <motion.h2 className="text-foreground text-center mb-4 font-extrabold" style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.15 }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
@@ -338,13 +470,32 @@ const Landing = () => {
             Every feature designed around your facility, your coaches, and your players.
           </motion.p>
           <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {valueProps.map((v) => (
-              <motion.div key={v.title} variants={fadeInUp} className="glass rounded-2xl p-8 glow-green-hover transition-all duration-300 hover:-translate-y-1">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                  <v.icon className="text-primary" size={28} />
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
-                <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
+            {valueProps.map((v, i) => (
+              <motion.div
+                key={v.title}
+                variants={fadeInUp}
+                className={`glass rounded-2xl p-8 transition-all duration-300 cursor-default min-h-[280px] ${
+                  activeCard === i ? `${v.hoverBg} ring-1 ring-primary/20` : "glow-green-hover hover:-translate-y-1"
+                }`}
+                onMouseEnter={() => setActiveCard(i)}
+                onMouseLeave={() => setActiveCard(null)}
+              >
+                {activeCard !== i ? (
+                  <>
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                      <v.icon className="text-primary" size={28} />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
+                    <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
+                  </>
+                ) : (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
+                    <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+                      <v.icon className="text-primary" size={16} /> {v.title}
+                    </h3>
+                    {v.hoverContent}
+                  </motion.div>
+                )}
               </motion.div>
             ))}
           </motion.div>
@@ -569,26 +720,18 @@ const Landing = () => {
             A clear progression from pilot to partnership.
           </motion.p>
           <motion.div className="grid md:grid-cols-3 gap-0 md:gap-0 relative" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {/* Connecting line */}
             <div className="hidden md:block absolute top-1/2 left-[16.67%] right-[16.67%] h-px bg-border -translate-y-1/2 z-0" />
-
             {[
               {
-                num: 1,
-                badge: "8 WEEKS",
-                title: "The Pilot",
+                num: 1, badge: "8 WEEKS", title: "The Pilot",
                 desc: "6 smart courts. Real events. Real data. We fund the hardware and platform. You bring the facility and the community. At Week 8, the numbers tell the story.",
               },
               {
-                num: 2,
-                badge: "WEEK 8",
-                title: "The Decision",
+                num: 2, badge: "WEEK 8", title: "The Decision",
                 desc: "We review success metrics together — court utilization, player engagement, platform revenue. If the data says go, we expand. If not, we pull the hardware and part as friends. Commit before Week 6 and your first 2 months of subscription are free.",
               },
               {
-                num: 3,
-                badge: "ONGOING",
-                title: "The Partnership",
+                num: 3, badge: "ONGOING", title: "The Partnership",
                 desc: "Expand to more courts. Revenue shifts to Peak. New features ship to you first. Your feedback shapes the product. Your network grows the ecosystem. Peak becomes the facility everyone else measures against.",
               },
             ].map((step) => (
