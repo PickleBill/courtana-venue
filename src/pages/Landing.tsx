@@ -540,7 +540,7 @@ const Landing = () => {
               Zero Risk
             </h3>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Start with 6 courts. Zero hardware cost. No subscription during the 8-week pilot. After that, $570/month — your first AI coaching clinic makes that back in a single session.
+              $0 during the 8-week pilot. Post-pilot: $95/court/mo for continued service. Cancel anytime. Your first AI coaching clinic covers the monthly cost.
             </p>
           </motion.div>
         </div>

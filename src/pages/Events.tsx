@@ -135,13 +135,15 @@ const Events = () => {
               return (
                 <motion.div key={event.id} variants={fadeInUp}>
                   <div className="glass rounded-2xl overflow-hidden glow-green-hover transition-all duration-300 hover:-translate-y-0.5 group">
-                    <div className="relative h-44 bg-gradient-to-br from-secondary to-card flex items-center justify-center">
-                      <div className="flex flex-col items-center gap-2">
-                        <span className={`text-xs font-bold px-3 py-1 rounded-full ${categoryColors[event.category]}`}>
+                    <div className="relative h-44 overflow-hidden">
+                      <img src={categoryImages[event.category] || categoryImages.Special} alt={event.title} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      <div className="absolute bottom-3 left-3 flex flex-col gap-1.5">
+                        <span className={`text-xs font-bold px-3 py-1 rounded-full ${categoryColors[event.category]} w-fit`}>
                           {event.category}
                         </span>
                         {event.badge && (
-                          <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent/20 text-accent">{event.badge}</span>
+                          <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent/20 text-accent w-fit">{event.badge}</span>
                         )}
                       </div>
                       <div className="absolute top-3 right-3 bg-background/90 backdrop-blur-sm rounded-xl px-3 py-1.5 text-xs font-bold text-foreground">
