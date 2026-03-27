@@ -328,21 +328,22 @@ const Landing = () => {
               </div>
             </motion.div>
 
-            {/* Panel 3 - Peak AI Analysis — keep video with LIVE badge */}
+            {/* Panel 3 - Gamification Preview — static image */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl overflow-hidden">
               <div className="relative">
-                <video src={CDN_VIDEO} autoPlay muted loop playsInline className="w-full h-48 object-cover" />
-                <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  <span className="text-[10px] font-bold text-primary">LIVE</span>
-                </div>
+                <img
+                  src="https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/7d7e5202-8a02-4188-a7a4-c9c8ef596fb1.jpeg"
+                  alt="Courtana Gamification — Badges & Leaderboards"
+                  className="w-full h-48 object-cover"
+                  loading="lazy"
+                />
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-2 mb-2">
-                  <Zap size={16} className="text-primary" />
-                  <span className="text-sm font-bold text-foreground">Peak AI Analysis — Live Match Review</span>
+                  <Gamepad2 size={16} className="text-primary" />
+                  <span className="text-sm font-bold text-foreground">Gamification — Badges & Leaderboards</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Advanced match analysis with shot-by-shot breakdown.</p>
+                <p className="text-sm text-muted-foreground">XP, achievements, and weekly leaderboards that keep players coming back.</p>
               </div>
             </motion.div>
           </motion.div>
