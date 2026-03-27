@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Rocket, Link2, TrendingUp, ExternalLink, Play } from "lucide-react";
+import { ArrowRight, Rocket, Link2, TrendingUp, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -80,32 +80,38 @@ const Partners = () => {
             <EcosystemFlywheel />
           </motion.div>
 
-          {/* Live Evidence Strip */}
+          {/* Featured Venue Partner */}
           <motion.div
-            className="max-w-2xl mx-auto rounded-2xl overflow-hidden border border-primary/20 shadow-2xl mt-8"
+            className="mt-8 glass rounded-2xl p-6 max-w-2xl mx-auto border border-primary/20 text-left"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
+            transition={{ delay: 0.8 }}
           >
-            <div className="relative">
-              <video
-                src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-48 object-cover"
-              />
-              <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
-                <Play size={12} className="text-primary" />
-                <span className="text-xs font-semibold text-primary">Courtana Live — Peak Pickleball · April 7</span>
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Rocket className="text-primary" size={24} />
               </div>
-            </div>
-            <div className="p-4 bg-card/80 text-center">
-              <p className="text-sm text-muted-foreground mb-2">The ecosystem is real. The courts are live. The data is running.</p>
-              <a href="https://peakpickleball.club" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors font-medium">
-                peakpickleball.club <ExternalLink size={12} />
-              </a>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-bold">🏆 Flagship Venue</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-semibold">Now Open</span>
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-1">Peak Pickleball · Greensboro, NC</h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  19 indoor courts including 2 championship courts. Greensboro's home for competitive pickleball.
+                  First Courtana smart court venue in the Southeast — 6 courts live April 7.
+                </p>
+                <div className="flex gap-3 flex-wrap">
+                  <a href="https://peakpickleball.club" target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">
+                    peakpickleball.club <ExternalLink size={11} />
+                  </a>
+                  <a href="https://app.courtreserve.com/online/publicbookings/13642?step=initial&tab=reserve" target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors">
+                    Book a Court <ExternalLink size={11} />
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
