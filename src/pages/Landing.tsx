@@ -323,8 +323,8 @@ const Landing = () => {
           </motion.h2>
           <motion.div className="grid md:grid-cols-3 gap-8 mb-14" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             {[
-              { label: "Peak's Investment During Pilot", value: "$0", sub: "8 weeks of smart court tech, events support, and marketing — on us." },
-              { label: "Post-Pilot: If You Expand", value: "$95/court/mo", sub: "6 courts = $570/mo during pilot. 19 courts = $1,805/mo at full expansion." },
+              { label: "Peak's Investment During Pilot", value: "$0", sub: "Hardware, software, events support, marketing — all on us for 8 weeks." },
+              { label: "Post-Pilot Subscription", value: "$95/court/mo", sub: "Only if you decide to continue. 6 courts = $570/mo. One coaching clinic covers it." },
               { label: "Projected Revenue Lift", value: "$2,000–4,500/mo", sub: "From premium court pricing, coaching, events, and walk-ins combined.", gold: true },
             ].map((m) => (
               <motion.div key={m.label} variants={fadeInUp} className={`glass rounded-2xl p-8 text-center ${m.gold ? "border-accent/30 glow-green" : ""}`}>
@@ -397,13 +397,12 @@ const Landing = () => {
               </div>
               <ul className="space-y-4">
                 {[
-                  "Hardware for 6 smart courts — shipped pre-configured, $0 to Peak",
-                  "Full platform: AI analysis, highlights, gamification, player app",
+                  "Hardware for 6 smart courts — shipped, configured, $0 to Peak",
+                  "Full platform access — AI analysis, highlights, gamification, player app",
                   "Co-promotion of Peak events through the Courtana network",
-                  "Social content creation (2×/week during pilot)",
+                  "Social content creation during pilot",
                   "Weekly performance dashboard with real-time data",
-                  "Dedicated partner contact — direct line, not a ticket queue",
-                  "Ongoing software updates and remote support",
+                  "Dedicated partner contact — Bill and David, direct line",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
@@ -425,11 +424,10 @@ const Landing = () => {
                 {[
                   "Your team installs cameras (we ship, you mount, we configure remotely)",
                   "1-hour coaching staff session — all 5 coaches, Week 1",
-                  "One launch email to your 250 members (we'll draft it)",
-                  "\"Powered by Courtana\" signage on smart courts",
-                  "Courtana featured in May 9 grand opening marketing",
-                  "Bi-weekly product feedback — honest, structured, invaluable",
-                  "Coaches provide regular feedback on AI tools and workflows",
+                  "One launch email to your 250 members (we draft it)",
+                  "\"Powered by Courtana\" signage + May 9 marketing mention",
+                  "Bi-weekly product feedback — what's working, what isn't",
+                  "Coaches test new features and give structured feedback",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2.5 flex-shrink-0" />

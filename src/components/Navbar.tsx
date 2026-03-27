@@ -7,10 +7,10 @@ const primaryLinks = [
   { label: "The Plan", href: "/" },
   { label: "Events", href: "/events" },
   { label: "Dashboard", href: "/dashboard" },
-  { label: "Discovery", href: "/discovery" },
 ];
 
 const moreLinks = [
+  { label: "Discovery", href: "/discovery" },
   { label: "Partners", href: "/partners" },
   { label: "Schedule", href: "/schedule" },
   { label: "About", href: "/about" },
