@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import EcosystemFlywheel from "@/components/partners/EcosystemFlywheel";
+import LeaderboardMockup from "@/components/mockups/LeaderboardMockup";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -35,12 +36,45 @@ const quotes = [
 ];
 
 const valueProps = [
-  { icon: Camera, title: "Cameras on 6 Courts", desc: "10 cameras across 6 courts. Non-invasive install. Instant replay on court-side displays. Players see their highlights in real time." },
-  { icon: Megaphone, title: "We Run Your Events", desc: "May 1 tournament? We put cameras on it. Grand opening? We live-broadcast it. Coaching clinics? We handle booking and payment." },
-  { icon: Brain, title: "AI Coaching at $20–25", desc: "Your coaches' lessons, enhanced with AI video review. A new revenue tier between \"free advice\" and \"$80/hr lessons.\" 70% to coach, 20% to Peak, 10% to Courtana." },
-  { icon: Gamepad2, title: "Gamification That Sticks", desc: "Badges, XP, leaderboards, trick shot recognition. The dopamine loop that makes players say \"one more game.\" This is how we beat the 1–2 month novelty dropoff." },
-  { icon: Users, title: "Open Play, Solved", desc: "Real-time court displays showing who's playing, how many spots are open, skill levels on court. No more \"who's in?\" text chains. Players scan in and Courtana matches them." },
-  { icon: Radio, title: "Live Broadcast to the Highway", desc: "Peak is 30 seconds from a Sheraton and visible from the highway. Live streams from championship courts turn cameras into a marketing billboard." },
+  {
+    icon: Camera, title: "Cameras on 6 Courts",
+    desc: "10 cameras across 6 courts. Non-invasive install. Instant replay on court-side displays. Players see their highlights in real time.",
+    hoverType: "iframe" as const,
+    hoverSrc: "https://courtana.com/display/ENgYPNHxUt7H",
+    hoverCta: { label: "View Live Display", href: "https://courtana.com/display/ENgYPNHxUt7H" },
+  },
+  {
+    icon: Megaphone, title: "We Run Your Events",
+    desc: "May 1 tournament? We put cameras on it. Grand opening? We live-broadcast it. Coaching clinics? We handle booking and payment.",
+    hoverType: "link" as const,
+    hoverCta: { label: "Browse Events", to: "/events" },
+  },
+  {
+    icon: Brain, title: "AI Coaching at $20–25",
+    desc: "Your coaches' lessons, enhanced with AI video review. A new revenue tier between \"free advice\" and \"$80/hr lessons.\" 70% to coach, 20% to Peak, 10% to Courtana.",
+    hoverType: "image" as const,
+    hoverSrc: "https://cdn.courtana.com/assets/aianalysis2.png",
+    hoverCta: { label: "Learn More", href: "https://courtana.com" },
+  },
+  {
+    icon: Gamepad2, title: "Gamification That Sticks",
+    desc: "Badges, XP, leaderboards, trick shot recognition. The dopamine loop that makes players say \"one more game.\" This is how we beat the 1–2 month novelty dropoff.",
+    hoverType: "leaderboard" as const,
+    hoverCta: { label: "View Global Leaderboard", href: "https://courtana.com/leaderboard/" },
+  },
+  {
+    icon: Users, title: "Open Play, Solved",
+    desc: "Real-time court displays showing who's playing, how many spots are open, skill levels on court. No more \"who's in?\" text chains. Players scan in and Courtana matches them.",
+    hoverType: "iframe" as const,
+    hoverSrc: "https://courtana.com/display/ENgYPNHxUt7H",
+    hoverCta: { label: "View Court Status", href: "https://courtana.com/display/ENgYPNHxUt7H" },
+  },
+  {
+    icon: Radio, title: "Live Broadcast to the Highway",
+    desc: "Peak is 30 seconds from a Sheraton and visible from the highway. Live streams from championship courts turn cameras into a marketing billboard.",
+    hoverType: "link" as const,
+    hoverCta: { label: "View Live Display", href: "https://courtana.com/display/ENgYPNHxUt7H" },
+  },
 ];
 
 const weeks = [
@@ -138,6 +172,7 @@ const CDN_VIDEO = "https://cdn.courtana.com/files/production/u/01915c59-9bb7-468
 
 const Landing = () => {
   const [expandedWeek, setExpandedWeek] = useState<number | null>(null);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen">
@@ -228,7 +263,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* What We Heard — moved up right after Stats */}
+      {/* What We Heard */}
       <section className="py-24 px-4">
         <div className="container mx-auto max-w-5xl">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
@@ -317,7 +352,7 @@ const Landing = () => {
             </motion.div>
           </motion.div>
 
-          {/* Stat strip — moved here from removed leaderboard section */}
+          {/* Stat strip */}
           <motion.div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground mt-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
             <span className="font-semibold text-foreground">4,097</span> Highlights Captured
             <span className="text-border">·</span>
@@ -328,7 +363,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Value Props */}
+      {/* Value Props — Interactive Hover Cards */}
       <section className="py-24 px-4 bg-card/50">
         <div className="container mx-auto max-w-6xl">
           <motion.h2 className="text-foreground text-center mb-4 font-extrabold" style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.15 }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
@@ -338,13 +373,87 @@ const Landing = () => {
             Every feature designed around your facility, your coaches, and your players.
           </motion.p>
           <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {valueProps.map((v) => (
-              <motion.div key={v.title} variants={fadeInUp} className="glass rounded-2xl p-8 glow-green-hover transition-all duration-300 hover:-translate-y-1">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                  <v.icon className="text-primary" size={28} />
+            {valueProps.map((v, i) => (
+              <motion.div
+                key={v.title}
+                variants={fadeInUp}
+                className={`glass rounded-2xl overflow-hidden transition-all duration-300 ${activeCard === i ? "ring-1 ring-primary/40 shadow-lg shadow-primary/10" : "glow-green-hover hover:-translate-y-1"}`}
+                onMouseEnter={() => setActiveCard(i)}
+                onMouseLeave={() => setActiveCard(null)}
+                onClick={() => setActiveCard(activeCard === i ? null : i)}
+              >
+                <div className="p-8">
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                    <v.icon className="text-primary" size={28} />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
+                  <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">{v.title}</h3>
-                <p className="text-base text-muted-foreground leading-relaxed">{v.desc}</p>
+
+                <AnimatePresence>
+                  {activeCard === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden border-t border-border"
+                    >
+                      {/* Hover content */}
+                      {v.hoverType === "leaderboard" && (
+                        <div className="p-4">
+                          <LeaderboardMockup />
+                        </div>
+                      )}
+                      {v.hoverType === "iframe" && v.hoverSrc && (
+                        <div className="relative bg-black">
+                          <iframe
+                            src={v.hoverSrc}
+                            className="w-full h-48 border-0"
+                            title={v.title}
+                            allow="autoplay"
+                            loading="lazy"
+                          />
+                          <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                            <span className="text-[10px] font-bold text-primary">LIVE</span>
+                          </div>
+                        </div>
+                      )}
+                      {v.hoverType === "image" && v.hoverSrc && (
+                        <div className="relative">
+                          <img src={v.hoverSrc} alt={v.title} className="w-full h-48 object-cover" loading="lazy" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                        </div>
+                      )}
+                      {v.hoverType === "link" && (
+                        <div className="p-6 bg-primary/5 flex items-center justify-center">
+                          <div className="text-center">
+                            <v.icon className="text-primary mx-auto mb-3" size={32} />
+                            <p className="text-sm text-muted-foreground mb-3">Click below to explore</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* CTA button */}
+                      <div className="p-4 bg-secondary/30">
+                        {v.hoverCta && "to" in v.hoverCta ? (
+                          <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
+                            <Link to={v.hoverCta.to!}>
+                              {v.hoverCta.label} <ArrowRight size={14} className="ml-1" />
+                            </Link>
+                          </Button>
+                        ) : v.hoverCta ? (
+                          <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold" asChild>
+                            <a href={v.hoverCta.href} target="_blank" rel="noopener noreferrer">
+                              {v.hoverCta.label} <ExternalLink size={14} className="ml-1" />
+                            </a>
+                          </Button>
+                        ) : null}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </motion.div>
@@ -502,7 +611,6 @@ const Landing = () => {
             What each side brings to the table.
           </motion.p>
           <motion.div className="grid md:grid-cols-2 gap-8 mb-10" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {/* Courtana Invests */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl p-8 border-l-4 border-l-primary">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -527,7 +635,6 @@ const Landing = () => {
               </ul>
             </motion.div>
 
-            {/* Peak Invests */}
             <motion.div variants={fadeInUp} className="glass rounded-2xl p-8 border-l-4 border-l-accent">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
@@ -569,28 +676,11 @@ const Landing = () => {
             A clear progression from pilot to partnership.
           </motion.p>
           <motion.div className="grid md:grid-cols-3 gap-0 md:gap-0 relative" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-            {/* Connecting line */}
             <div className="hidden md:block absolute top-1/2 left-[16.67%] right-[16.67%] h-px bg-border -translate-y-1/2 z-0" />
-
             {[
-              {
-                num: 1,
-                badge: "8 WEEKS",
-                title: "The Pilot",
-                desc: "6 smart courts. Real events. Real data. We fund the hardware and platform. You bring the facility and the community. At Week 8, the numbers tell the story.",
-              },
-              {
-                num: 2,
-                badge: "WEEK 8",
-                title: "The Decision",
-                desc: "We review success metrics together — court utilization, player engagement, platform revenue. If the data says go, we expand. If not, we pull the hardware and part as friends. Commit before Week 6 and your first 2 months of subscription are free.",
-              },
-              {
-                num: 3,
-                badge: "ONGOING",
-                title: "The Partnership",
-                desc: "Expand to more courts. Revenue shifts to Peak. New features ship to you first. Your feedback shapes the product. Your network grows the ecosystem. Peak becomes the facility everyone else measures against.",
-              },
+              { num: 1, badge: "8 WEEKS", title: "The Pilot", desc: "6 smart courts. Real events. Real data. We fund the hardware and platform. You bring the facility and the community. At Week 8, the numbers tell the story." },
+              { num: 2, badge: "WEEK 8", title: "The Decision", desc: "We review success metrics together — court utilization, player engagement, platform revenue. If the data says go, we expand. If not, we pull the hardware and part as friends. Commit before Week 6 and your first 2 months of subscription are free." },
+              { num: 3, badge: "ONGOING", title: "The Partnership", desc: "Expand to more courts. Revenue shifts to Peak. New features ship to you first. Your feedback shapes the product. Your network grows the ecosystem. Peak becomes the facility everyone else measures against." },
             ].map((step) => (
               <motion.div key={step.num} variants={fadeInUp} className="relative z-10 p-4">
                 <div className="glass rounded-2xl p-8 text-center h-full flex flex-col">

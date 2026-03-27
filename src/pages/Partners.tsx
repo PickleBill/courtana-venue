@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Rocket, Link2, TrendingUp, ExternalLink, Play } from "lucide-react";
+import { ArrowRight, Rocket, Link2, TrendingUp, ExternalLink, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -46,6 +46,8 @@ const Partners = () => {
     return partners;
   }, [view]);
 
+  const peakPartner = partners.find((p) => p.name === "Peak Pickleball");
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -80,34 +82,45 @@ const Partners = () => {
             <EcosystemFlywheel />
           </motion.div>
 
-          {/* Live Evidence Strip */}
-          <motion.div
-            className="max-w-2xl mx-auto rounded-2xl overflow-hidden border border-primary/20 shadow-2xl mt-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-          >
-            <div className="relative">
-              <video
-                src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-48 object-cover"
-              />
-              <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
-                <Play size={12} className="text-primary" />
-                <span className="text-xs font-semibold text-primary">Courtana Live — Peak Pickleball · April 7</span>
-              </div>
-            </div>
-            <div className="p-4 bg-card/80 text-center">
-              <p className="text-sm text-muted-foreground mb-2">The ecosystem is real. The courts are live. The data is running.</p>
-              <a href="https://peakpickleball.club" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors font-medium">
-                peakpickleball.club <ExternalLink size={12} />
+          {/* Featured Venue — Peak Pickleball Hero Card */}
+          {peakPartner && (
+            <motion.div
+              className="max-w-3xl mx-auto mt-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
+              <a href={peakPartner.url} target="_blank" rel="noopener noreferrer" className="block glass rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/40 transition-colors shadow-2xl">
+                <div className="relative">
+                  <img
+                    src={peakPartner.imageUrl || "https://peakpickleball.club/wp-content/uploads/2026/03/IMG_2132-scaled.jpeg"}
+                    alt="Peak Pickleball — Featured Venue Partner"
+                    className="w-full h-56 md:h-72 object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <span className="px-3 py-1.5 rounded-full bg-primary/90 text-primary-foreground text-xs font-bold uppercase tracking-wider">
+                      Featured Venue Partner
+                    </span>
+                  </div>
+                  <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                    <span className="text-xs font-semibold text-primary">Live — April 7</span>
+                  </div>
+                </div>
+                <div className="p-6 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <MapPin className="text-primary" size={20} />
+                    <div className="text-left">
+                      <div className="font-bold text-foreground text-lg">{peakPartner.name}</div>
+                      <div className="text-sm text-muted-foreground">19 Courts · Greensboro, NC · 6 Smart Courts Live</div>
+                    </div>
+                  </div>
+                  <ExternalLink size={16} className="text-muted-foreground" />
+                </div>
               </a>
-            </div>
-          </motion.div>
+            </motion.div>
+          )}
         </div>
       </section>
 

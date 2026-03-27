@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
-import { Activity, DollarSign, Users, Camera, ExternalLink, Target, CheckCircle } from "lucide-react";
+import { Activity, DollarSign, Users, Camera, ExternalLink, Target, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -30,13 +32,13 @@ const revenueBySource = [
 ];
 
 const pilotEvents = [
-  { name: "Grand Opening — Dinks & Drinks", date: "May 9", capacity: 200, registered: 0, revenue: "$0", status: "Upcoming" },
-  { name: "Peak Spring Smash Tournament", date: "May 1–4", capacity: 300, registered: 0, revenue: "$0", status: "Registration Open" },
-  { name: "Courtana Court Preview: Coaches Only", date: "Apr 14", capacity: 10, registered: 0, revenue: "$0", status: "Upcoming" },
-  { name: "Open Play Happy Hour", date: "Apr 17+", capacity: 40, registered: 0, revenue: "$0", status: "Registration Open" },
-  { name: "AI Coaching Clinic: Third Shot Mastery", date: "Apr 22", capacity: 16, registered: 0, revenue: "$0", status: "Registration Open" },
-  { name: "Friday Night Lights: Live Broadcast", date: "May 16+", capacity: 32, registered: 0, revenue: "$0", status: "Upcoming" },
-  { name: "Charity Round Robin", date: "May 17", capacity: 24, registered: 0, revenue: "$0", status: "Upcoming" },
+  { id: "grand-opening", name: "Grand Opening — Dinks & Drinks", date: "May 9", capacity: 200, registered: 0, revenue: "$0", status: "Upcoming" },
+  { id: "spring-smash", name: "Peak Spring Smash Tournament", date: "May 1–4", capacity: 300, registered: 0, revenue: "$0", status: "Registration Open" },
+  { id: "coaches-preview", name: "Courtana Court Preview: Coaches Only", date: "Apr 14", capacity: 10, registered: 0, revenue: "$0", status: "Upcoming" },
+  { id: "open-play-happy-hour", name: "Open Play Happy Hour", date: "Apr 17+", capacity: 40, registered: 0, revenue: "$0", status: "Registration Open" },
+  { id: "ai-coaching-clinic", name: "AI Coaching Clinic: Third Shot Mastery", date: "Apr 22", capacity: 16, registered: 0, revenue: "$0", status: "Registration Open" },
+  { id: "friday-night-lights", name: "Friday Night Lights: Live Broadcast", date: "May 16+", capacity: 32, registered: 0, revenue: "$0", status: "Upcoming" },
+  { id: "charity-round-robin", name: "Charity Round Robin", date: "May 17", capacity: 24, registered: 0, revenue: "$0", status: "Upcoming" },
 ];
 
 const statusColors: Record<string, string> = {
@@ -53,6 +55,8 @@ const kpis = [
 ];
 
 const Dashboard = () => {
+  const [currentWeek, setCurrentWeek] = useState(1);
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -66,7 +70,40 @@ const Dashboard = () => {
                   Peak Pickleball — <span className="text-gradient-green">Pilot Dashboard</span>
                 </h1>
                 <div className="flex items-center gap-3 mt-2">
-                  <span className="text-xs px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 font-bold">Week 1 of 8</span>
+                  {/* Week Selector */}
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setCurrentWeek((w) => Math.max(1, w - 1))}
+                      className="p-1 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
+                      disabled={currentWeek === 1}
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+                    <div className="flex gap-1">
+                      {Array.from({ length: 8 }, (_, i) => i + 1).map((w) => (
+                        <button
+                          key={w}
+                          onClick={() => setCurrentWeek(w)}
+                          className={`w-7 h-7 rounded-full text-xs font-bold transition-all ${
+                            w === currentWeek
+                              ? "bg-purple-500/20 text-purple-400 ring-1 ring-purple-500/30"
+                              : w <= currentWeek
+                                ? "bg-secondary text-foreground hover:bg-secondary/80"
+                                : "bg-secondary/50 text-muted-foreground hover:bg-secondary/80"
+                          }`}
+                        >
+                          {w}
+                        </button>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => setCurrentWeek((w) => Math.min(8, w + 1))}
+                      className="p-1 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
+                      disabled={currentWeek === 8}
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                  </div>
                   <span className="text-sm text-muted-foreground">April 7 — June 1, 2026</span>
                 </div>
               </div>
@@ -80,7 +117,7 @@ const Dashboard = () => {
           {/* KPIs */}
           <motion.div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8" initial="hidden" animate="visible" variants={stagger}>
             {kpis.map((k) => (
-              <motion.div key={k.label} variants={fadeInUp} className={`glass rounded-2xl p-5 ${k.accent ? "border-accent/30 glow-green" : ""}`}>
+              <motion.div key={k.label} variants={fadeInUp} className={`glass rounded-2xl p-5 hover:scale-[1.02] transition-transform cursor-default ${k.accent ? "border-accent/30 glow-green" : ""}`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-muted-foreground uppercase tracking-wider font-bold">{k.label}</span>
                   <k.icon size={16} className={k.accent ? "text-accent" : "text-primary"} />
@@ -156,16 +193,22 @@ const Dashboard = () => {
                 </thead>
                 <tbody>
                   {pilotEvents.map((ev) => (
-                    <tr key={ev.name} className="border-b border-border/50 hover:bg-secondary/30 transition-colors">
-                      <td className="p-4 text-foreground font-medium">{ev.name}</td>
-                      <td className="p-4 text-muted-foreground">{ev.date}</td>
-                      <td className="p-4 text-right text-foreground">{ev.capacity}</td>
-                      <td className="p-4 text-right text-foreground">{ev.registered}</td>
-                      <td className="p-4 text-right text-primary font-semibold">{ev.revenue}</td>
-                      <td className="p-4 text-right">
-                        <span className={`text-xs px-3 py-1 rounded-full font-bold ${statusColors[ev.status] || ""}`}>{ev.status}</span>
-                      </td>
-                    </tr>
+                    <Link
+                      key={ev.id}
+                      to={`/events`}
+                      className="contents"
+                    >
+                      <tr className="border-b border-border/50 hover:bg-primary/5 transition-colors cursor-pointer">
+                        <td className="p-4 text-foreground font-medium">{ev.name}</td>
+                        <td className="p-4 text-muted-foreground">{ev.date}</td>
+                        <td className="p-4 text-right text-foreground">{ev.capacity}</td>
+                        <td className="p-4 text-right text-foreground">{ev.registered}</td>
+                        <td className="p-4 text-right text-primary font-semibold">{ev.revenue}</td>
+                        <td className="p-4 text-right">
+                          <span className={`text-xs px-3 py-1 rounded-full font-bold ${statusColors[ev.status] || ""}`}>{ev.status}</span>
+                        </td>
+                      </tr>
+                    </Link>
                   ))}
                 </tbody>
               </table>
@@ -187,7 +230,7 @@ const Dashboard = () => {
                 { target: "$2,000/mo revenue lift", current: "Pilot in progress" },
                 { target: "50+ player accounts", current: "0 accounts" },
               ].map((s) => (
-                <div key={s.target} className="bg-secondary/50 rounded-xl p-5">
+                <div key={s.target} className="bg-secondary/50 rounded-xl p-5 hover:bg-secondary/70 transition-colors cursor-default">
                   <div className="text-xs text-muted-foreground uppercase tracking-wider font-bold mb-2">Target</div>
                   <div className="text-base font-bold text-foreground mb-3">{s.target}</div>
                   <div className="text-xs text-muted-foreground uppercase tracking-wider font-bold mb-1">Current</div>
