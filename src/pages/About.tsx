@@ -86,12 +86,21 @@ const About = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3 }}
-              className="glass rounded-2xl h-80 flex items-center justify-center"
+              className="rounded-2xl overflow-hidden border border-primary/20 shadow-2xl relative"
             >
-              <div className="text-center text-muted-foreground">
-                <Camera size={48} className="mx-auto mb-4 text-primary/50" />
-                <p className="text-sm">Facility photo coming soon</p>
+              <div className="absolute top-3 left-3 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-xs font-semibold text-primary">Courtana Smart Court — Live AI Highlight</span>
               </div>
+              <video
+                src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-80 object-cover"
+                poster="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/01915c59-9bb7-4683-bd53-e28bddcae12e.jpeg"
+              />
             </motion.div>
           </div>
         </div>
