@@ -11,15 +11,6 @@ import { events, categoryColors } from "@/data/events";
 
 const categories = ["All", "Clinic", "Tournament", "Open Play", "Special"];
 
-const COURT_RESERVE_URL = "https://app.courtreserve.com/online/publicbookings/13642?step=initial&tab=reserve";
-
-const categoryImages: Record<string, string> = {
-  Tournament: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=80",
-  Special: "https://images.unsplash.com/photo-1544991875-5dc1b05f607d?w=800&q=80",
-  Clinic: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&q=80",
-  "Open Play": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80",
-};
-
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
@@ -28,6 +19,9 @@ const fadeInUp = {
 const Events = () => {
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
+  const [bookingEvent, setBookingEvent] = useState<string | null>(null);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingForm, setBookingForm] = useState({ name: "", email: "", spots: 1 });
 
   const featured = events.find((e) => e.featured);
   const regularEvents = events.filter((e) => !e.featured);
@@ -39,6 +33,17 @@ const Events = () => {
       return matchCat && matchSearch;
     });
   }, [filter, search, regularEvents]);
+
+  const handleBook = (eventTitle: string) => {
+    window.location.href = `mailto:bill@courtana.com?subject=Peak%20Event%20—%20${encodeURIComponent(eventTitle)}`;
+  };
+
+  const handleSubmitBooking = (e: React.FormEvent) => {
+    e.preventDefault();
+    setTimeout(() => setBookingSuccess(true), 1500);
+  };
+
+  const currentBookingEvent = events.find((ev) => ev.id === bookingEvent);
 
   return (
     <div className="min-h-screen">
@@ -54,16 +59,10 @@ const Events = () => {
           {featured && (
             <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="mb-10">
               <div className="glass rounded-2xl overflow-hidden glow-green border-primary/20">
-                <div className="relative h-56 overflow-hidden">
-                  <img
-                    src={categoryImages[featured.category] || categoryImages.Special}
-                    alt={featured.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="relative h-56 bg-gradient-to-br from-primary/20 via-card to-accent/10 flex items-center justify-center">
+                  <div className="text-center">
                     <span className="text-sm font-bold px-4 py-1.5 rounded-full bg-accent/20 text-accent mb-3 inline-block">{featured.badge}</span>
-                    <h2 className="text-2xl md:text-3xl font-extrabold text-white">{featured.title}</h2>
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-foreground px-4">{featured.title}</h2>
                   </div>
                   <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm rounded-xl px-4 py-2 text-sm font-bold text-foreground">
                     {format(parseISO(featured.date), "MMM d, yyyy")}
@@ -77,10 +76,8 @@ const Events = () => {
                     <span className="flex items-center gap-1.5"><Users size={16} /> {featured.spots} spots</span>
                     <span className="flex items-center gap-1.5"><DollarSign size={16} /> ${featured.price} general admission</span>
                   </div>
-                  <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 py-5 text-base font-bold" asChild>
-                    <a href={COURT_RESERVE_URL} target="_blank" rel="noopener noreferrer">
-                      Book Now →
-                    </a>
+                  <Button onClick={() => handleBook(featured.title)} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-8 py-5 text-base font-bold">
+                    Get Your Spot
                   </Button>
                 </div>
               </div>
@@ -124,19 +121,11 @@ const Events = () => {
           >
             {filtered.map((event) => {
               const soldOut = event.spots === 0;
-              const eventImage = categoryImages[event.category] || categoryImages["Open Play"];
               return (
                 <motion.div key={event.id} variants={fadeInUp}>
                   <div className="glass rounded-2xl overflow-hidden glow-green-hover transition-all duration-300 hover:-translate-y-0.5 group">
-                    <div className="relative h-44 overflow-hidden">
-                      <img
-                        src={eventImage}
-                        alt={event.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                      <div className="absolute bottom-3 left-3 flex items-center gap-2">
+                    <div className="relative h-44 bg-gradient-to-br from-secondary to-card flex items-center justify-center">
+                      <div className="flex flex-col items-center gap-2">
                         <span className={`text-xs font-bold px-3 py-1 rounded-full ${categoryColors[event.category]}`}>
                           {event.category}
                         </span>
@@ -160,10 +149,8 @@ const Events = () => {
                       {soldOut ? (
                         <Button disabled className="w-full rounded-xl">Sold Out</Button>
                       ) : (
-                        <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl" asChild>
-                          <a href={COURT_RESERVE_URL} target="_blank" rel="noopener noreferrer">
-                            {event.price === 0 ? "RSVP" : "Book Now →"}
-                          </a>
+                        <Button onClick={() => handleBook(event.title)} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">
+                          {event.price === 0 ? "RSVP" : "Book Now"}
                         </Button>
                       )}
                     </div>
@@ -189,6 +176,46 @@ const Events = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Booking Modal */}
+      {bookingEvent && currentBookingEvent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm" onClick={() => setBookingEvent(null)}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="glass rounded-2xl p-8 max-w-md w-full border border-border"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {bookingSuccess ? (
+              <div className="text-center py-6">
+                <CheckCircle className="text-primary mx-auto mb-4" size={48} />
+                <h3 className="text-xl font-bold text-foreground mb-2">You're in!</h3>
+                <p className="text-muted-foreground mb-6">Check your email for details about {currentBookingEvent.title}.</p>
+                <Button onClick={() => setBookingEvent(null)} className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">Done</Button>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-bold text-foreground">Book Your Spot</h3>
+                  <button onClick={() => setBookingEvent(null)} className="text-muted-foreground hover:text-foreground"><X size={20} /></button>
+                </div>
+                <p className="text-sm text-muted-foreground mb-6">{currentBookingEvent.title}</p>
+                <form onSubmit={handleSubmitBooking} className="space-y-4">
+                  <Input placeholder="Your name" value={bookingForm.name} onChange={(e) => setBookingForm(f => ({ ...f, name: e.target.value }))} required className="bg-secondary border-border rounded-xl" />
+                  <Input type="email" placeholder="Email address" value={bookingForm.email} onChange={(e) => setBookingForm(f => ({ ...f, email: e.target.value }))} required className="bg-secondary border-border rounded-xl" />
+                  <div>
+                    <label className="text-sm text-muted-foreground mb-1 block">Spots (1–4)</label>
+                    <Input type="number" min={1} max={4} value={bookingForm.spots} onChange={(e) => setBookingForm(f => ({ ...f, spots: Number(e.target.value) }))} className="bg-secondary border-border rounded-xl" />
+                  </div>
+                  <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl py-5 font-bold">
+                    {currentBookingEvent.price === 0 ? "Reserve — Free" : `Reserve — $${currentBookingEvent.price * bookingForm.spots}`}
+                  </Button>
+                </form>
+              </>
+            )}
+          </motion.div>
+        </div>
+      )}
 
       <Footer />
     </div>
