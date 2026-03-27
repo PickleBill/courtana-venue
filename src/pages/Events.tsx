@@ -68,10 +68,12 @@ const Events = () => {
           {featured && (
             <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="mb-10">
               <div className="glass rounded-2xl overflow-hidden glow-green border-primary/20">
-                <div className="relative h-56 bg-gradient-to-br from-primary/20 via-card to-accent/10 flex items-center justify-center">
-                  <div className="text-center">
-                    <span className="text-sm font-bold px-4 py-1.5 rounded-full bg-accent/20 text-accent mb-3 inline-block">{featured.badge}</span>
-                    <h2 className="text-2xl md:text-3xl font-extrabold text-foreground px-4">{featured.title}</h2>
+                <div className="relative h-56 overflow-hidden">
+                  <img src={categoryImages[featured.category] || categoryImages.Special} alt={featured.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <span className="text-sm font-bold px-4 py-1.5 rounded-full bg-accent/20 text-accent mb-2 inline-block">{featured.badge}</span>
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-white">{featured.title}</h2>
                   </div>
                   <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm rounded-xl px-4 py-2 text-sm font-bold text-foreground">
                     {format(parseISO(featured.date), "MMM d, yyyy")}
