@@ -4,7 +4,7 @@ import { Camera, Play, Brain, Trophy, ExternalLink, Mail, ChevronUp } from "luci
 import { Button } from "@/components/ui/button";
 import AIAnalysisMockup from "@/components/mockups/AIAnalysisMockup";
 import ReplayMockup from "@/components/mockups/ReplayMockup";
-import { CDN, LIVE_LINKS, PLATFORM_STATS, PLAYERS } from "@/data/courtana-live";
+import { CDN, LIVE_LINKS, PLATFORM_STATS, PLAYERS, LEADERBOARD } from "@/data/courtana-live";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -86,16 +86,13 @@ const VenuePreview = () => {
       </header>
 
       {/* ===== SECTION 1: Hero + About ===== */}
-      <section id="about" className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Background video */}
-        <video
-          src={CDN.highlightVideo2}
-          autoPlay
-          muted
-          loop
-          playsInline
+      <section id="about" className="relative min-h-[90vh] flex items-center overflow-hidden scroll-mt-16">
+        {/* Background — Ken Burns zoom on static court image */}
+        <img
+          src={CDN.liveCourt}
+          alt=""
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ backgroundColor: "#0f1923" }}
+          style={{ animation: "kenburns 20s ease-in-out infinite", backgroundColor: "#0f1923" }}
         />
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30" />
@@ -136,7 +133,7 @@ const VenuePreview = () => {
       </section>
 
       {/* ===== SECTION 2: Technology ===== */}
-      <section id="technology" className="py-20 px-4 bg-card/50">
+      <section id="technology" className="py-20 px-4 bg-card/50 scroll-mt-16">
         <div className="container mx-auto max-w-5xl">
           <motion.h2
             className="text-3xl md:text-4xl font-extrabold text-foreground text-center mb-12"
@@ -178,7 +175,7 @@ const VenuePreview = () => {
       </section>
 
       {/* ===== SECTION 3: See It Live ===== */}
-      <section id="live" className="py-20 px-4">
+      <section id="live" className="py-20 px-4 scroll-mt-16">
         <div className="container mx-auto max-w-5xl">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-12">
             <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-extrabold text-foreground mb-3">
@@ -266,7 +263,46 @@ const VenuePreview = () => {
             </p>
           </motion.div>
 
-          {/* Live links */}
+          {/* Mini Leaderboard */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="max-w-md mx-auto mb-12"
+          >
+            <div className="glass rounded-2xl overflow-hidden">
+              <div className="p-4 border-b border-border flex items-center gap-2">
+                <Trophy className="text-primary" size={18} />
+                <h4 className="font-bold text-foreground">Top Players</h4>
+              </div>
+              <div className="divide-y divide-border/50">
+                {LEADERBOARD.slice(0, 5).map((entry) => (
+                  <div
+                    key={entry.rank}
+                    className={`flex items-center justify-between px-4 py-3 ${entry.rank === 1 ? "bg-primary/5" : ""}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className={`text-sm font-bold w-5 text-center ${entry.rank === 1 ? "text-primary" : "text-muted-foreground"}`}>
+                        {entry.rank}
+                      </span>
+                      <span className={`text-sm font-semibold ${entry.rank === 1 ? "text-primary" : "text-foreground"}`}>
+                        {entry.username}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs text-muted-foreground">{entry.xp.toLocaleString()} XP</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">{entry.rankTier}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p className="text-sm text-muted-foreground text-center mt-3 italic">
+              Rankings update in real-time as players earn XP on Courtana courts.
+            </p>
+          </motion.div>
+
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -291,7 +327,7 @@ const VenuePreview = () => {
       </section>
 
       {/* ===== SECTION 4: Contact ===== */}
-      <section id="contact" className="py-20 px-4 bg-card/50">
+      <section id="contact" className="py-20 px-4 bg-card/50 scroll-mt-16">
         <div className="container mx-auto max-w-xl text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
