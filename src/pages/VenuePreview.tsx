@@ -133,7 +133,7 @@ const VenuePreview = () => {
       </section>
 
       {/* ===== SECTION 2: Technology ===== */}
-      <section id="technology" className="py-20 px-4 bg-card/50">
+      <section id="technology" className="py-20 px-4 bg-card/50 scroll-mt-16">
         <div className="container mx-auto max-w-5xl">
           <motion.h2
             className="text-3xl md:text-4xl font-extrabold text-foreground text-center mb-12"
@@ -175,7 +175,7 @@ const VenuePreview = () => {
       </section>
 
       {/* ===== SECTION 3: See It Live ===== */}
-      <section id="live" className="py-20 px-4">
+      <section id="live" className="py-20 px-4 scroll-mt-16">
         <div className="container mx-auto max-w-5xl">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="text-center mb-12">
             <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-extrabold text-foreground mb-3">
@@ -327,7 +327,7 @@ const VenuePreview = () => {
       </section>
 
       {/* ===== SECTION 4: Contact ===== */}
-      <section id="contact" className="py-20 px-4 bg-card/50">
+      <section id="contact" className="py-20 px-4 bg-card/50 scroll-mt-16">
         <div className="container mx-auto max-w-xl text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-extrabold text-foreground mb-4">
