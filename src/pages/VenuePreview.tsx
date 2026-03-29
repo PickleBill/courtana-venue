@@ -89,7 +89,7 @@ const VenuePreview = () => {
       <section id="about" className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background video */}
         <video
-          src={CDN.highlightVideo1}
+          src={CDN.highlightVideo2}
           autoPlay
           muted
           loop
