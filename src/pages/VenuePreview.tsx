@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Camera, Play, Brain, Trophy, ExternalLink, Mail, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,11 @@ const navLinks = [
   { label: "Technology", href: "#technology" },
   { label: "See It Live", href: "#live" },
   { label: "Contact", href: "#contact" },
+];
+
+const ctaLinks = [
+  { label: "See More", to: "/see-more", cta: true },
+  { label: "Exclusive", to: "/exclusive", cta: false },
 ];
 
 const VenuePreview = () => {
@@ -59,6 +65,25 @@ const VenuePreview = () => {
                 {l.label}
               </a>
             ))}
+            {ctaLinks.map((l) =>
+              l.cta ? (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className="text-sm font-bold text-primary border border-primary/30 px-4 py-1.5 rounded-full hover:bg-primary/10 transition-colors glow-green-hover"
+                >
+                  {l.label}
+                </Link>
+              ) : (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
+                >
+                  {l.label}
+                </Link>
+              )
+            )}
           </nav>
           {/* Mobile toggle */}
           <button className="md:hidden text-foreground" onClick={() => setMobileNav(!mobileNav)}>
@@ -80,6 +105,16 @@ const VenuePreview = () => {
               >
                 {l.label}
               </a>
+            ))}
+            {ctaLinks.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setMobileNav(false)}
+                className={`block py-2.5 text-sm font-medium transition-colors ${l.cta ? "text-primary font-bold" : "text-muted-foreground hover:text-accent"}`}
+              >
+                {l.label}
+              </Link>
             ))}
           </div>
         )}

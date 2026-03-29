@@ -15,6 +15,8 @@ import NotFound from "./pages/NotFound";
 import VenueDetail from "./pages/VenueDetail";
 import Investor from "./pages/Investor";
 import PlayerShowcase from "./pages/PlayerShowcase";
+import SeeMore from "./pages/SeeMore";
+import Exclusive from "./pages/Exclusive";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +28,8 @@ const App = () => (
         <Routes>
           {/* Existing routes — managed by Lovable */}
           <Route path="/" element={<VenuePreview />} />
+          <Route path="/see-more" element={<SeeMore />} />
+          <Route path="/exclusive" element={<Exclusive />} />
           <Route path="/plan" element={<Landing />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/events" element={<Events />} />
