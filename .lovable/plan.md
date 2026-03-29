@@ -1,74 +1,52 @@
 
 
-# Peak Pickleball — Final Consolidation Pass
+## Navbar "See More" + "Exclusive" Portal
 
-## Summary
-Merge the best elements from both versions into a single polished site. Seven targeted changes — no structural rewrites, just visual cleanup and asset consistency.
+### What we're building
 
----
+Two new entry points in the VenuePreview navbar (the single-page venue site at `/`):
 
-## Changes
+1. **"See More" CTA button** — slightly pronounced (outline/glow style), links to `/see-more`
+   - New page that combines: Ecosystem/Partners content + a genericized version of the Plan (Landing page clone with Peak-specific quotes/names softened)
 
-### 1. Hero — Remove Peak Image from Top-Right, Keep Title Full-Width
-**File:** `src/pages/Landing.tsx` (lines 190-234)
+2. **"Exclusive" link** — links to `/exclusive`
+   - New hub page titled "Custom Venue Dashboard" that links out to the deeper tools: Dashboard, Investor view, Player Showcase, Discovery, Events, Schedule
 
-The Peak facility image in the hero top-right looks off. Remove the `grid lg:grid-cols-2` layout and revert to a centered single-column hero. Keep the title, subtitle, and CTA buttons centered/left-aligned and full-width. The hero video below already showcases the product. The Peak facility photo belongs on the Partners page (where it already lives as the featured card).
+### Files to create
 
-### 2. "See It In Action" — Keep Center Video, Remove Stats Strip, Fix Side Panels
-**File:** `src/pages/Landing.tsx` (lines 293-377)
+| File | Purpose |
+|------|---------|
+| `src/pages/SeeMore.tsx` | Ecosystem flywheel + genericized plan content (clone key sections from Landing.tsx, replace "Peak Pickleball" references with generic venue language, keep CDN assets) |
+| `src/pages/Exclusive.tsx` | Card-grid hub linking to `/dashboard`, `/investor`, `/player`, `/events`, `/schedule`, `/discovery` |
 
-- **Center panel** (Peak highlight video): Already correct — keep it
-- **Left panel** (Court Display): The CDN image URL `livefeedcourt+(Medium).png` may 404 due to URL encoding. Change to a fallback: use the poster image from the display page or a relevant Courtana homepage screenshot. For now, use `https://cdn.courtana.com/assets/aianalysis2.png` as a working CDN asset, or fall back to the Peak facility image
-- **Right panel**: Same issue — both side panels should show **static images**, not duplicate videos. Use distinct CDN assets or the Peak facility shot and a gamification screenshot
-- **Remove the stat strip** below ("4,097 Highlights / 25 Ranked / 82+ Badges") — it's unverifiable filler
+### Files to modify
 
-### 3. Value Prop Cards — Simplify Hover to Green BG + CTA Only
-**File:** `src/pages/Landing.tsx` (lines 380-480)
+| File | Change |
+|------|--------|
+| `src/pages/VenuePreview.tsx` | Add "See More" and "Exclusive" to `navLinks` array; "See More" gets a slightly styled CTA treatment in the nav |
+| `src/App.tsx` | Add routes for `/see-more` and `/exclusive` |
 
-The iframe embeds on hover are heavy and may fail (X-Frame-Options). Simplify:
-- On hover/active: change background to `bg-primary/10`, keep the icon + title visible, swap desc text for a single CTA button
-- Remove iframe/image hover content entirely — they load slowly and break the UX
-- Keep the `LeaderboardMockup` for the Gamification card only (it's a local component, loads instantly)
-- Each card's CTA: "View Live Display", "Browse Events", "Learn More", "View Global Leaderboard", "View Court Status", "Watch Live"
+### Nav treatment (in VenuePreview's custom nav)
 
-### 4. Events Page — Add Category Hero Images (from Clone)
-**File:** `src/pages/Events.tsx`
+- Existing anchor links stay as-is
+- Add `"See More"` as a `<Link to="/see-more">` styled as a small outlined/glow button (similar to existing CTA patterns)
+- Add `"Exclusive"` as a subtle text link or small badge-style link
 
-Port the `categoryImages` map from the clone version using Unsplash URLs:
-```
-Tournament: unsplash photo-1554068865-24cecd4e34b8
-Special: unsplash photo-1544991875-5dc1b05f607d
-Clinic: unsplash photo-1517838277536-f5f99be501cd
-Open Play: unsplash photo-1571019613454-1cb2f99b2d8b
-```
+### SeeMore page content
 
-Replace the gradient placeholder `div` (lines 129-141) with an `<img>` tag using these images, matching the clone's pattern (image + gradient overlay + badges positioned at bottom-left). Same treatment for the featured event hero area.
+- Uses `<Navbar />` (shared nav) so user can navigate back
+- Section 1: Ecosystem Flywheel (reuse `<EcosystemFlywheel />` component + partner highlights)
+- Section 2: "The Courtana Plan" — cloned from Landing.tsx key sections (hero stats, value props, tech cards, timeline) but with references like "Peak Pickleball" → "Your Facility", Chris Kelly quotes → generic venue operator quotes
 
-### 5. Partners Page — Remove Peak Image Hero, Use Compact Featured Card
-**File:** `src/pages/Partners.tsx` (lines 85-123)
+### Exclusive page content
 
-The large Peak hero image with the Noble Academy booth isn't a great shot of Peak. Replace with the clone's compact "Flagship Venue" card pattern (text-based, no image, with a Rocket icon and "Flagship Venue" badge). This is cleaner and doesn't rely on a mediocre photo. Keep the flywheel above it.
+- Uses `<Navbar />`
+- Hero: "Custom Venue Dashboard" title
+- Grid of glass cards linking to each sub-page (Dashboard, Investor, Player, Events, Schedule, Discovery) with icons and one-line descriptions
 
-### 6. Partners Data — Fix Underground Description
-**File:** `src/data/partners.ts`
+### Technical details
 
-Underground's description already says "Raleigh" — confirm it's correct. The `videoUrl` on Underground currently points to the same CDN video as was on Peak. This is fine for now (it shows real Courtana footage). Ensure Peak's entry has `imageUrl` but no `videoUrl` (the hero handles Peak's video).
-
-### 7. Economics Section — Minor Copy Cleanup
-**File:** `src/pages/Landing.tsx` (lines 562-620)
-
-The post-pilot card still says "6 courts = $570/mo" which is correct math but the user flagged it earlier as needing improvement. Update the sub-text to: `"$0 during the 8-week pilot. Post-pilot: $95/court/mo for continued service. Cancel anytime."` — clearer and emphasizes the zero-risk angle.
-
----
-
-## Files Changed
-- `src/pages/Landing.tsx` — hero layout simplification, See It In Action asset fixes, value prop card simplification, economics copy
-- `src/pages/Events.tsx` — category hero images from Unsplash
-- `src/pages/Partners.tsx` — compact featured card instead of large image
-- `src/data/partners.ts` — verify Underground/Peak entries
-
-## What This Does NOT Change
-- 8-week timeline, Partnership Commitments, Path Forward, Ecosystem section — all untouched
-- Dashboard, Discovery, About pages — untouched this pass
-- No new dependencies or routing changes
+- VenuePreview has its own inline nav (not the shared `<Navbar />`), so the CTA additions go into its `navLinks` array and render logic
+- The SeeMore and Exclusive pages use the shared `<Navbar />` component, which will need "See More" and "Exclusive" added to its link arrays
+- Landing.tsx is 717 lines; SeeMore will cherry-pick the best sections rather than full clone
 
