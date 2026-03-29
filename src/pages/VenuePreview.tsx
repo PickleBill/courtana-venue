@@ -4,11 +4,7 @@ import { Camera, Play, Brain, Trophy, ExternalLink, Mail, ChevronUp } from "luci
 import { Button } from "@/components/ui/button";
 import AIAnalysisMockup from "@/components/mockups/AIAnalysisMockup";
 import ReplayMockup from "@/components/mockups/ReplayMockup";
-
-const CDN_VIDEO = "https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4";
-const CDN_LOGO = "https://cdn.courtana.com/assets/logos/fulllogo-dark-transparent-grad.svg";
-const CDN_AVATAR = "https://cdn.courtana.com/files/production/u/a3c7e1d0-4b2f-4a8e-9f1c-6d5e8b3a2c1f/7d873c1f-ec81-487a-8fe7-97bdb94a6397.png";
-const CDN_RANK_BADGE = "https://cdn.courtana.com/files/production/u/0573819f-7e19-4e13-8d5c-90a771136f7e/58a41527-1ba8-4805-a8ab-5431ceb7c6ac.png";
+import { CDN, LIVE_LINKS, PLATFORM_STATS, PLAYERS } from "@/data/courtana-live";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -50,7 +46,7 @@ const VenuePreview = () => {
       >
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
           <a href="#about">
-            <img src={CDN_LOGO} alt="Courtana" className="h-8" />
+            <img src={CDN.logo} alt="Courtana" className="h-8" />
           </a>
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
@@ -93,7 +89,7 @@ const VenuePreview = () => {
       <section id="about" className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background video */}
         <video
-          src={CDN_VIDEO}
+          src={CDN.highlightVideo1}
           autoPlay
           muted
           loop
@@ -129,7 +125,7 @@ const VenuePreview = () => {
             </motion.div>
             <motion.div variants={fadeInUp} className="mt-8">
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl gap-2">
-                <a href="https://courtana.com" target="_blank" rel="noopener noreferrer">
+                <a href={LIVE_LINKS.mainSite} target="_blank" rel="noopener noreferrer">
                   <ExternalLink size={16} />
                   Learn more at courtana.com
                 </a>
@@ -203,12 +199,12 @@ const VenuePreview = () => {
           >
             <div className="rounded-2xl overflow-hidden border border-primary/30 shadow-[0_0_30px_-5px_hsl(var(--primary)/0.2)]">
               <video
-                src={CDN_VIDEO}
+                src={CDN.highlightVideo1}
                 controls
                 muted
                 playsInline
                 className="w-full"
-                poster="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/01915c59-9bb7-4683-bd53-e28bddcae12e.jpeg"
+                poster={CDN.highlightPoster}
               />
             </div>
             <p className="text-sm text-muted-foreground text-center mt-3 italic">
@@ -225,9 +221,9 @@ const VenuePreview = () => {
             className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12"
           >
             {[
-              { value: "4,097", label: "Highlights Captured" },
-              { value: "25", label: "Ranked Players" },
-              { value: "82+", label: "Badges Earned" },
+              { value: PLATFORM_STATS.totalHighlights.toLocaleString(), label: "Highlights Captured" },
+              { value: String(PLATFORM_STATS.rankedPlayers), label: "Ranked Players" },
+              { value: `${PLATFORM_STATS.badgesEarned}+`, label: "Badges Earned" },
             ].map((s) => (
               <div key={s.label} className="glass rounded-xl p-4 text-center">
                 <div className="text-xl font-extrabold text-gradient-green">{s.value}</div>
@@ -254,17 +250,17 @@ const VenuePreview = () => {
             variants={fadeInUp}
             className="max-w-md mx-auto mb-12"
           >
-            <div className="glass rounded-2xl p-6 flex items-center gap-5">
+            <a href={PLAYERS.picklebill.profileUrl} target="_blank" rel="noopener noreferrer" className="glass rounded-2xl p-6 flex items-center gap-5 group hover:border-primary/40 transition-colors block">
               <div className="relative shrink-0">
-                <img src={CDN_AVATAR} alt="PickleBill" className="w-16 h-16 rounded-full border-2 border-primary/40 object-cover" />
-                <img src={CDN_RANK_BADGE} alt="Gold III" className="absolute -bottom-1 -right-1 w-7 h-7" />
+                <img src={PLAYERS.picklebill.avatar} alt={PLAYERS.picklebill.username} className="w-16 h-16 rounded-full border-2 border-primary/40 object-cover" />
+                <img src={CDN.goldIIIBadge} alt={PLAYERS.picklebill.rankTier} className="absolute -bottom-1 -right-1 w-7 h-7" />
               </div>
               <div>
-                <h4 className="font-bold text-foreground text-lg">PickleBill</h4>
-                <p className="text-sm text-primary font-semibold">Gold III · #1 Global</p>
-                <p className="text-xs text-muted-foreground">Level 17 · 283,950 XP</p>
+                <h4 className="font-bold text-foreground text-lg group-hover:text-primary transition-colors">{PLAYERS.picklebill.username}</h4>
+                <p className="text-sm text-primary font-semibold">{PLAYERS.picklebill.rankTier} · #{PLAYERS.picklebill.rank} Global</p>
+                <p className="text-xs text-muted-foreground">Level {PLAYERS.picklebill.level} · {PLAYERS.picklebill.xp.toLocaleString()} XP</p>
               </div>
-            </div>
+            </a>
             <p className="text-sm text-muted-foreground text-center mt-3 italic">
               Every player gets a profile. Every session builds their story.
             </p>
@@ -279,13 +275,13 @@ const VenuePreview = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl gap-2">
-              <a href="https://courtana.com/session-highlights/KYMLnLpmA6Sq" target="_blank" rel="noopener noreferrer">
+              <a href={LIVE_LINKS.sessionHighlights} target="_blank" rel="noopener noreferrer">
                 <Play size={16} />
                 View a Live Session →
               </a>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 rounded-xl gap-2">
-              <a href="https://courtana.com/highlight/KyRtzDmrpBQN" target="_blank" rel="noopener noreferrer">
+              <a href={LIVE_LINKS.highlightClip} target="_blank" rel="noopener noreferrer">
                 <ExternalLink size={16} />
                 Watch a Highlight Clip →
               </a>
@@ -312,7 +308,7 @@ const VenuePreview = () => {
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 rounded-xl gap-2">
-                <a href="https://courtana.com" target="_blank" rel="noopener noreferrer">
+                <a href={LIVE_LINKS.mainSite} target="_blank" rel="noopener noreferrer">
                   <ExternalLink size={16} />
                   Visit courtana.com
                 </a>
@@ -328,7 +324,7 @@ const VenuePreview = () => {
       {/* Footer */}
       <footer className="py-8 px-4 border-t border-border">
         <div className="container mx-auto text-center space-y-1">
-          <p className="text-sm text-muted-foreground">© 2026 Courtana · <a href="https://courtana.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">courtana.com</a></p>
+          <p className="text-sm text-muted-foreground">© 2026 Courtana · <a href={LIVE_LINKS.mainSite} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">courtana.com</a></p>
           <p className="text-xs text-muted-foreground/60">Powered by Courtana Smart Court Technology</p>
         </div>
       </footer>
