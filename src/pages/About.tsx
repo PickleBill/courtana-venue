@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AIAnalysisMockup from "@/components/mockups/AIAnalysisMockup";
 import ReplayMockup from "@/components/mockups/ReplayMockup";
+import { CDN } from "@/data/courtana-live";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -93,7 +94,7 @@ const About = () => {
                 <span className="text-xs font-semibold text-primary">Live Court Display</span>
               </div>
               <img
-                src="https://cdn.courtana.com/assets/livefeedcourt+(Medium).png"
+                src={CDN.liveCourt}
                 alt="Courtana Live Court Display"
                 className="w-full h-80 object-cover"
                 loading="lazy"
@@ -157,13 +158,13 @@ const About = () => {
                 <span className="text-xs font-semibold text-primary">Auto-Generated Highlight</span>
               </div>
               <video
-                src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4"
+                src={CDN.highlightVideo1}
                 autoPlay
                 muted
                 loop
                 playsInline
                 className="w-full max-h-80 object-cover"
-                poster="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/01915c59-9bb7-4683-bd53-e28bddcae12e.jpeg"
+                poster={CDN.highlightPoster}
               />
             </motion.div>
             <motion.div variants={fadeInUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
