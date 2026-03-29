@@ -11,6 +11,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import EcosystemFlywheel from "@/components/partners/EcosystemFlywheel";
 import LeaderboardMockup from "@/components/mockups/LeaderboardMockup";
+import { CDN, LIVE_LINKS } from "@/data/courtana-live";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -168,7 +169,7 @@ const revenueStreams = [
   { name: "Open play optimization (reduced no-shows, better fill)", conservative: "$100", realistic: "$250", upside: "$400" },
 ];
 
-const CDN_VIDEO = "https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/ce00696b-9f9b-465a-971c-dbf1334e556c.mp4";
+
 
 const Landing = () => {
   const [expandedWeek, setExpandedWeek] = useState<number | null>(null);
@@ -216,13 +217,13 @@ const Landing = () => {
 
             {/* Hero Highlight Video — Full Width Below */}
             <motion.div variants={fadeInUp} className="mt-10 rounded-2xl overflow-hidden border border-primary/20 shadow-2xl relative">
-              <a href="https://courtana.com" target="_blank" rel="noopener noreferrer" className="block">
+              <a href={LIVE_LINKS.mainSite} target="_blank" rel="noopener noreferrer" className="block">
                 <div className="absolute top-3 left-3 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-primary/30">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   <span className="text-xs font-semibold text-primary">Live Courtana Highlight</span>
                 </div>
                 <video
-                  src={CDN_VIDEO}
+                  src={CDN.highlightVideo1}
                   autoPlay
                   muted
                   loop
@@ -305,7 +306,7 @@ const Landing = () => {
               <div className="relative">
                 <a href="https://courtana.com/highlight/bcsPaTmCM2dw" target="_blank" rel="noopener noreferrer" className="block">
                   <video
-                    src="https://cdn.courtana.com/files/production/u/01915c59-9bb7-4683-bd53-e28bddcae12e/6bc572b0-a198-41ad-89d2-7d2b985ce410.mp4"
+                    src={CDN.highlightVideo2}
                     poster="https://cdn.courtana.com/files/production/u/faad1826-b310-4602-89d2-cc8eea8444f6/7d7e5202-8a02-4188-a7a4-c9c8ef596fb1.jpeg"
                     autoPlay
                     muted
@@ -699,7 +700,7 @@ const Landing = () => {
               </Button>
             </motion.div>
             <motion.div variants={fadeInUp} className="mt-8">
-              <a href="https://courtana.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-base">
+              <a href={LIVE_LINKS.mainSite} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-base">
                 Learn more at courtana.com
                 <ExternalLink size={16} />
               </a>
