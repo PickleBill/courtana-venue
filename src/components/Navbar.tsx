@@ -14,6 +14,8 @@ const moreLinks = [
   { label: "Schedule", href: "/schedule" },
   { label: "About", href: "/about" },
   { label: "Discovery", href: "/discovery" },
+  { label: "See More", href: "/see-more" },
+  { label: "Exclusive", href: "/exclusive" },
 ];
 
 const Navbar = () => {
